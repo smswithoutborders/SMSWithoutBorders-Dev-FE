@@ -40,8 +40,8 @@ export const CheckBox = styled.input.attrs((props) => ({
 export const Button = styled.button.attrs((props) => ({
   className: clsx(
     "px-8 py-2 text-lg border-0 rounded-lg focus:outline-none block w-full",
-    props.error
-      ? "text-black bg-gray-400"
+    props.disabled
+      ? "text-gray-500 bg-gray-300"
       : "text-white bg-indigo-600 hover:bg-indigo-700"
   ),
 }))``;
