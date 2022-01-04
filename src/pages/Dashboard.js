@@ -7,7 +7,7 @@ const Dashboard = () => {
   return (
     <Fragment>
       <Navbar open={open} onToggle={() => setOpen(!open)} />
-      <div className="flex h-screen overflow-auto bg-gray-100">
+      <div className="flex h-screen overflow-auto bg-gray-50">
         <SideNav open={open} />
         <Outlet />
       </div>
