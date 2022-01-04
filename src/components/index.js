@@ -7,6 +7,7 @@ export * from "./ToggleButton";
 export * from "./ClipBoard";
 export * from "./ToolTip";
 export { default as Navbar } from "./Navbar";
+export { default as SideNav } from "./SideNav";
 
 export const ErrorMessage = styled.p.attrs({
   className: "text-red-500 mt-2",
