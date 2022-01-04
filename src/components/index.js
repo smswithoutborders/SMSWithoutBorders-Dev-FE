@@ -8,6 +8,7 @@ export * from "./ClipBoard";
 export * from "./ToolTip";
 export { default as Navbar } from "./Navbar";
 export { default as SideNav } from "./SideNav";
+export { default as TabBar } from "./TabBar";
 
 export const ErrorMessage = styled.p.attrs({
   className: "text-red-500 mt-2",
