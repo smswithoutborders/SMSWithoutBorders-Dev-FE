@@ -1,15 +1,20 @@
 import React from "react";
-import styled from "styled-components";
+import clsx from "clsx";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import PropTypes from "prop-types";
 
-const IconButton = styled.span.attrs({
-    className: "absolute top-3 right-3 flex items-center  cursor-pointer"
-})``;
+export const ToggleButton = ({ value, toggleFunc, className }) => {
+  return (
+    <div
+      className={clsx("flex items-center cursor-pointer", className)}
+      onClick={() => toggleFunc(!value)}
+    >
+      {value ? <FiEyeOff size={16} /> : <FiEye size={16} />}
+    </div>
+  );
+};
 
-export const ToggleButton = (props) => {
-    return (
-        <IconButton onClick={() => props.toggleFunc(!props.value)}>
-            {props.value ? <FiEyeOff size={16} /> : <FiEye size={16} />}
-        </IconButton>
-    )
-}
+ToggleButton.propTypes = {
+  value: PropTypes.bool.isRequired,
+  toggleFunc: PropTypes.func.isRequired,
+};

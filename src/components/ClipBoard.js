@@ -10,10 +10,7 @@ export const ClipBoard = ({ size, value, text }) => {
     toast.success(`${text} copied to clipboard`);
   };
   return (
-    <div
-      className="items-center justify-center inline-block cursor-pointer align-center"
-      onClick={handleCopy}
-    >
+    <div className="cursor-pointer" onClick={handleCopy}>
       <ToolTip text={`copy ${text}`}>
         <FiCopy size={size || 18} />
       </ToolTip>

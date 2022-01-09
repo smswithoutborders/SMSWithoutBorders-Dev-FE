@@ -5,27 +5,24 @@ import PropTypes from "prop-types";
 export const ToolTip = ({ text, children }) => {
   const tipRef = React.createRef(null);
   function handleMouseEnter() {
-    tipRef.current.style.opacity = 1;
+    tipRef.current.classList.remove("hidden");
   }
   function handleMouseLeave() {
-    tipRef.current.style.opacity = 0;
+    tipRef.current.classList.add("hidden");
   }
   return (
     <div
-      className="relative flex items-center"
+      className="relative flex"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {children}
-      <div
-        className="flex items-center px-2 py-1 ml-2 text-white bg-gray-500 rounded opacity-0"
+      <small
+        className="absolute z-10 hidden px-2 ml-2 text-white bg-gray-500 rounded left-4"
         ref={tipRef}
       >
-        <div
-          className="absolute w-3 h-3 ml-2 transform rotate-45 bg-gray-500 left-4"
-        />
-        <small className="z-10 w-full">{text}</small>
-      </div>
+        {text}
+      </small>
     </div>
   );
 };

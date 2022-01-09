@@ -87,7 +87,11 @@ const LogIn = () => {
                   {...register("password")}
                   error={errors.password}
                 />
-                <ToggleButton toggleFunc={setToggle} value={toggle} />
+                <ToggleButton
+                  className="absolute top-3 right-3"
+                  toggleFunc={setToggle}
+                  value={toggle}
+                />
               </div>
               {errors.password && (
                 <ErrorMessage>{errors.password?.message}</ErrorMessage>
