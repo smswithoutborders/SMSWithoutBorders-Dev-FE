@@ -6,6 +6,7 @@ export * from "./Loader";
 export * from "./ToggleButton";
 export * from "./ClipBoard";
 export * from "./ToolTip";
+export * from "./PrivateRoute";
 export { default as Navbar } from "./Navbar";
 export { default as SideNav } from "./SideNav";
 export { default as TabBar } from "./TabBar";

@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LogIn, SignUp, Dashboard, Credentials } from "pages";
+import { PrivateRoute } from "components";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
@@ -17,7 +18,14 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="dashboard" element={<Dashboard />}>
+          <Route
+            path="dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          >
             <Route index element={<Credentials />} />
             <Route path="credentials" element={<Credentials />} />
           </Route>
