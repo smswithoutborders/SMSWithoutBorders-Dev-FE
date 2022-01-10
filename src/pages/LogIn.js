@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import logo from "images/logo.png";
+import toast from "react-hot-toast";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { setCache, getCache, clearCache } from "services/storage";
 import * as yup from "yup";
+import { useLoginMutation } from "services/api";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { saveAuth } from "features";
 import {
   ErrorMessage,
   FormGroup,
   Input,
   Label,
+  Loader,
   CheckBox,
   Button,
   ToggleButton,
@@ -47,21 +53,68 @@ const LogIn = () => {
     }
   }, [setValue]);
 
-  const handleLogin = (data) => {
+  const [login, { isLoading, isSuccess }] = useLoginMutation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogin = async (data) => {
     setCache(data);
-    // handle login here
+    try {
+      const user = await login(data).unwrap();
+      dispatch(saveAuth(user));
+      clearCache();
+      navigate("/dashboard");
+    } catch (error) {
+      switch (error.status) {
+        case 400:
+          toast.error("An error occured. Please contact support");
+          break;
+        case 401:
+          toast.error(
+            "Sorry you are not authorized to use this service. Please contact support"
+          );
+          break;
+        case 409:
+          toast.error(
+            "There is a possible duplicate of this account please contact support"
+          );
+          break;
+
+        case 429:
+          toast.error(
+            "Too many failed attempts please wait a while and try again"
+          );
+          break;
+        case 500:
+          toast.error("A critical error occured. Please contact support");
+          break;
+        case "FETCH_ERROR":
+          toast.error("An error occured, please check your network try again");
+          break;
+        default:
+          toast.error("An error occured, please try again");
+      }
+    }
   };
+
+  /*
+    when making requests show loading indicator
+    Also maintain after request is successfull to update background state
+  */
+  if (isLoading || isSuccess) {
+    return <Loader message="processing please wait ..." />;
+  }
 
   return (
     <Container className="grid h-screen place-items-center">
       <div className="container flex flex-wrap items-center mx-auto">
         <div className="flex flex-col w-full p-8 m-4 mt-10 bg-white shadow-lg lg:w-2/6 md:w-1/2 rounded-xl md:mx-auto md:mt-0">
           <div className="mb-4">
-            <img src={logo} alt="logo" className="mx-auto my-8 h-28" />
-            <h1 className="text-3xl font-bold text-center">
+            <img src={logo} alt="logo" className="h-24 mx-auto my-8" />
+            <h1 className="text-2xl font-bold text-center">
               SMSWithoutBorders
             </h1>
-            <p className="my-1 text-3xl font-light tracking-wide text-center">
+            <p className="my-1 text-2xl font-light tracking-wide text-center">
               Developer
             </p>
           </div>

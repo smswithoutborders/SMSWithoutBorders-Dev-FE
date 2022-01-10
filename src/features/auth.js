@@ -1,31 +1,38 @@
 // user management
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  id: "",
+  email: "",
+  sessionID: "",
+};
+
 export const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    authedUser: "",
-  },
+  initialState,
   reducers: {
-    login: (state, action) => {
+    saveAuth: (state, action) => {
+      const { id, email, session_id } = action.payload;
       return {
         ...state,
-        uid: action.payload,
+        id,
+        email,
+        sessionID: session_id,
       };
     },
-    logout: (state) => {
+    clearAuth: (state) => {
       return {
         ...state,
-        uid: "",
+        ...initialState,
       };
     },
   },
 });
 
 // Action creators are generated for each reducer function
-export const { login, logout } = authSlice.actions;
+export const { saveAuth, clearAuth } = authSlice.actions;
 
 // auth selector
-export const authSelector = (state) => state.auth.auth_key;
+export const authSelector = (state) => state.auth;
 
 export default authSlice.reducer;
