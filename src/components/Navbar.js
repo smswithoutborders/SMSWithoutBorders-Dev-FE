@@ -1,11 +1,18 @@
 import React from "react";
 import logo from "images/logo.png";
-import { FiLogOut, FiMenu } from "react-icons/fi";
 import PropTypes from "prop-types";
+import { FiLogOut, FiMenu } from "react-icons/fi";
+import { useSelector, useDispatch } from "react-redux";
+import { authSelector, clearAuth } from "features";
+import { clearCache } from "services/storage";
 
 const Navbar = ({ open, onToggle }) => {
+  const dispatch = useDispatch();
+  const user = useSelector(authSelector);
+
   const handleLogOut = () => {
-    // handle logout here
+    dispatch(clearAuth());
+    clearCache();
   };
 
   return (
@@ -21,13 +28,21 @@ const Navbar = ({ open, onToggle }) => {
           <span className="ml-2 font-medium">SMSWithoutBorders</span>
           <span className="ml-1 tracking-wide text-light">Developer</span>
         </div>
-        <button
-          onClick={() => handleLogOut()}
-          className="items-center hidden px-2 py-1 text-sm border rounded-lg md:flex"
-        >
-          <FiLogOut className="mr-1" />
-          <span>Logout</span>
-        </button>
+        <div className="items-center hidden md:flex">
+          <div className="flex items-center justify-center mr-2 bg-gray-100 rounded-full w-7 h-7">
+            <p className="font-bold text-center text-gray-800">
+              {user?.email.charAt(0)}
+            </p>
+          </div>
+          <p className="mr-4 text-sm text-gray-300">{user?.email}</p>
+          <button
+            onClick={() => handleLogOut()}
+            className="flex items-center px-2 py-1 text-sm border rounded-lg"
+          >
+            <FiLogOut className="mr-1 align-middle" />
+            <span>Logout</span>
+          </button>
+        </div>
       </div>
     </nav>
   );
