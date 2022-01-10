@@ -39,10 +39,17 @@ const LogIn = () => {
     resolver: yupResolver(schema),
   });
 
+  const [login, { isLoading, isSuccess }] = useLoginMutation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    // get the stored user creds to repopulate
+    // get the stored cache to repopulate
     const cache = getCache();
-    if (cache && cache.email) {
+    if (cache && cache.session_id) {
+      dispatch(saveAuth(cache));
+      navigate("/dashboard");
+    } else if (cache && cache.email) {
       setValue("email", cache.email, {
         shouldValidate: true,
       });
@@ -51,18 +58,19 @@ const LogIn = () => {
       });
       clearCache();
     }
-  }, [setValue]);
-
-  const [login, { isLoading, isSuccess }] = useLoginMutation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  }, [setValue, dispatch, navigate]);
 
   const handleLogin = async (data) => {
     setCache(data);
     try {
       const user = await login(data).unwrap();
       dispatch(saveAuth(user));
+      // remove any cached email and password
       clearCache();
+      // if user wants to be remembered then cache their session
+      if (data.rememberMe) {
+        setCache(user);
+      }
       navigate("/dashboard");
     } catch (error) {
       switch (error.status) {
