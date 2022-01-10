@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { useLoginMutation } from "services/api";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { saveAuth } from "features";
+import { saveAuth, saveCredentials } from "features";
 import {
   ErrorMessage,
   FormGroup,
@@ -49,6 +49,7 @@ const LogIn = () => {
     const cache = getCache();
     if (cache && cache.session_id) {
       dispatch(saveAuth(cache));
+      dispatch(saveCredentials(cache));
       navigate("/dashboard");
     } else if (cache && cache.email) {
       setValue("email", cache.email, {
@@ -66,6 +67,7 @@ const LogIn = () => {
     try {
       const user = await login(data).unwrap();
       dispatch(saveAuth(user));
+      dispatch(saveCredentials(user));
       // remove any cached email and password
       clearCache();
       // if user wants to be remembered then cache their session
