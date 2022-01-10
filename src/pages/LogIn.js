@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { setCache, getCache, clearCache } from "services/storage";
 import * as yup from "yup";
 import { useLoginMutation } from "services/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { saveAuth } from "features";
 import {
@@ -41,6 +41,7 @@ const LogIn = () => {
 
   const [login, { isLoading, isSuccess }] = useLoginMutation();
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -71,7 +72,11 @@ const LogIn = () => {
       if (data.rememberMe) {
         setCache(user);
       }
-      navigate("/dashboard");
+      /* 
+        redirect users if they initially tried to access a private route
+        without permission
+      */
+      navigate(location.state.path || "/dashboard");
     } catch (error) {
       switch (error.status) {
         case 400:
