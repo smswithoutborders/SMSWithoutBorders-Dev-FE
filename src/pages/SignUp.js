@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { setCache, getCache, clearCache } from "services/storage";
 import * as yup from "yup";
 import { useSignupMutation } from "services/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import {
   ErrorMessage,
@@ -241,6 +241,13 @@ const SignUp = () => {
             </FormGroup>
             <Button disabled={!watch("acceptTerms")}>sign up</Button>
           </form>
+
+          <p className="mt-4 text-sm text-center text-gray-600">
+            Already have an account? &nbsp;
+            <Link to="/login" className="text-indigo-500">
+              login
+            </Link>
+          </p>
         </div>
       </div>
     </Container>

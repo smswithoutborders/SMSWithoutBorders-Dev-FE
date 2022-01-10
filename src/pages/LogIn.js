@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { setCache, getCache, clearCache } from "services/storage";
 import * as yup from "yup";
 import { useLoginMutation } from "services/api";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { saveAuth, saveCredentials } from "features";
 import {
@@ -180,6 +180,13 @@ const LogIn = () => {
             </FormGroup>
             <Button>login</Button>
           </form>
+
+          <p className="mt-4 text-sm text-center text-gray-600">
+            Dont have an account? &nbsp;
+            <Link to="/signup" className="text-indigo-500">
+              Sign Up
+            </Link>
+          </p>
         </div>
       </div>
     </Container>
