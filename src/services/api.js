@@ -20,9 +20,32 @@ export const API = createApi({
         body: credentials,
       }),
     }),
+    newCredentials: builder.mutation({
+      query: ({ id, sessionID }) => ({
+        url: `/users/${id}/token`,
+        method: "POST",
+        body: {
+          session_id: sessionID,
+        },
+      }),
+    }),
+    updateCredentials: builder.mutation({
+      query: ({ id, sessionID }) => ({
+        url: `/users/${id}/token`,
+        method: "PUT",
+        body: {
+          session_id: sessionID,
+        },
+      }),
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useLoginMutation, useSignupMutation } = API;
+export const {
+  useLoginMutation,
+  useSignupMutation,
+  useUpdateCredentialsMutation,
+  useNewCredentialsMutation,
+} = API;
