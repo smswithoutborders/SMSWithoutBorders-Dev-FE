@@ -23,6 +23,7 @@ cp example.env .env.production.local
 
 ```
 PORT=18900  /* local development port */
+REACT_APP_API_URL=http://localhost:9000 /* Dev API URL */
 ```
 ### Start development server
 
