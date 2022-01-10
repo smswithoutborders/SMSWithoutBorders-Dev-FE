@@ -1,16 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FiArrowLeftCircle } from "react-icons/fi";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const TabBar = ({ title, children }) => {
+  const navigate = useNavigate();
   return (
     <div className="flex items-center justify-between px-4 py-3">
       <div className="flex items-center">
         <FiArrowLeftCircle
           size={22}
           className="mr-3 cursor-pointer"
-          onClick={() => Navigate(-1)}
+          onClick={() => navigate(-1)}
         />
         <h2 className="">{title || "title"}</h2>
       </div>
