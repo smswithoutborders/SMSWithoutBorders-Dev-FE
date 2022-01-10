@@ -52,7 +52,6 @@ const SignUp = () => {
   useEffect(() => {
     // get the stored user creds to repopulate
     const cache = getCache();
-    console.log(cache);
     if (cache && cache.email) {
       setValue("email", cache.email, {
         shouldValidate: true,
@@ -76,10 +75,8 @@ const SignUp = () => {
   const handleSignUp = async (data) => {
     setCache(data);
     try {
-      const user = await signup(data).unwrap();
-      console.log(user);
+      await signup(data).unwrap();
     } catch (error) {
-      console.log(error);
       switch (error.status) {
         case 400:
           toast.error("An error occured. Please contact support");
