@@ -10,7 +10,7 @@ export { default as Navbar } from "./Navbar";
 export { default as SideNav } from "./SideNav";
 export { default as TabBar } from "./TabBar";
 
-export const ErrorMessage = styled.p.attrs({
+export const ErrorMessage = styled.small.attrs({
   className: "text-red-500 mt-2",
 })``;
 
@@ -20,7 +20,7 @@ export const FormGroup = styled.div.attrs({
 
 export const Input = styled.input.attrs((props) => ({
   className: clsx(
-    "w-full px-3 py-2 block rounded-md border-gray-300 shadow-sm focus:ring",
+    "w-full text-sm px-3 py-2 block rounded-md border-gray-300 text-gray-500 shadow-sm focus:ring",
     props.error
       ? "border-red-500 focus:border-red-500 focus:ring-red-200"
       : "focus:border-indigo-400 focus:ring-indigo-200"
@@ -39,17 +39,18 @@ export const CheckBox = styled.input.attrs((props) => ({
   ),
 }))``;
 
-export const Button = styled.button.attrs((props) => ({
+export const Button = styled.button.attrs(({ className, disabled }) => ({
   className: clsx(
     "px-8 py-2 text-lg border-0 rounded-lg focus:outline-none block w-full",
-    props.disabled
+    disabled
       ? "text-gray-500 bg-gray-300"
-      : "text-white bg-indigo-600 hover:bg-indigo-700"
+      : "text-white bg-indigo-600 hover:bg-indigo-700",
+    className
   ),
 }))``;
 
-export const Container = styled.div.attrs((props) => ({
-  className: clsx("bg-cover bg-center", ...props.className),
+export const Container = styled.div.attrs(({ className }) => ({
+  className: clsx("bg-cover bg-center", className),
 }))`
-  ${(props) => `background-image: url("${props.imageSrc || waves}");`}
+  ${({ imageSrc }) => `background-image: url("${imageSrc || waves}");`}
 `;
