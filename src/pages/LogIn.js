@@ -78,7 +78,11 @@ const LogIn = () => {
         redirect users if they initially tried to access a private route
         without permission
       */
-      navigate(location.state.path || "/dashboard");
+      if (location.state && location.state.path) {
+        navigate(location.state.path);
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error) {
       switch (error.status) {
         case 400:
