@@ -89,9 +89,9 @@ const Credentials = () => {
           <Fragment>
             <div className="my-2">
               <h4>Auth ID</h4>
-              <div className="flex flex-col items-start md:flex-row">
-                <div className="mr-3">
-                  <p className="my-0 break-words">
+              <div className="grid grid-cols-8">
+                <div className="col-span-7">
+                  <p className="my-0 text-base break-words">
                     {showAuthID
                       ? credentials.authID
                       : "xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxx"}
@@ -101,7 +101,7 @@ const Credentials = () => {
                     auth_id="Auth ID" parameter.
                   </small>
                 </div>
-                <div className="flex my-2 md:my-0 md:p-1.5">
+                <div className="flex items-start col-span-1 p-1.5">
                   <ToggleButton
                     className="mr-3"
                     value={showAuthID}
@@ -118,9 +118,9 @@ const Credentials = () => {
 
             <div className="my-2">
               <h4>Auth Key</h4>
-              <div className="flex flex-col items-start md:flex-row">
-                <div className="mr-3">
-                  <p className="my-0 break-words">
+              <div className="grid grid-cols-8">
+                <div className="col-span-7">
+                  <p className="my-0 text-base break-words">
                     {showAuthKey
                       ? credentials.authKey
                       : "xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxx"}
@@ -130,7 +130,7 @@ const Credentials = () => {
                     auth_key="Auth Key" parameter.
                   </small>
                 </div>
-                <div className="flex my-2 md:my-0 md:p-1.5">
+                <div className="flex items-start col-span-1 p-1.5">
                   <ToggleButton
                     className="mr-3"
                     value={showAuthKey}
