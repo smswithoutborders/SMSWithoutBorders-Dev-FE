@@ -53,6 +53,8 @@ const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
   );
 };
 
+// all parameters are  gotten from the parent Dashboard component
+
 const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
   const [active, setActive] = useState(0);
 
@@ -65,7 +67,7 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
     <Fragment>
       <nav className="px-4 py-5 text-white bg-gray-800 md:hidden">
         <div className="flex">
-          {open ? (
+          {!open ? (
             <FiX
               size={20}
               className="mr-4 cursor-pointer"
@@ -84,7 +86,7 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
         </div>
       </nav>
 
-      {open && (
+      {!open && (
         <div className="absolute z-50 flex flex-col w-full h-full bg-white lg:hidden">
           <div className="">
             <NavLink
