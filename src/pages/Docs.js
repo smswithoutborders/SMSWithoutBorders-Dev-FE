@@ -2,6 +2,7 @@ import React from "react";
 import { TabBar, Loader } from "components";
 import { useGetDocsQuery } from "services/api";
 import { FiRefreshCcw } from "react-icons/fi";
+import ReactMarkdown from "react-markdown";
 
 const Docs = () => {
   const {
@@ -46,7 +47,9 @@ const Docs = () => {
           refresh
         </button>
       </TabBar>
-      <div className="max-w-full p-6 prose">{data}</div>
+      <div className="max-w-full p-6 prose">
+        <ReactMarkdown>{data}</ReactMarkdown>
+      </div>
     </div>
   );
 };
