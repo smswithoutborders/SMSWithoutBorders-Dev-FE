@@ -24,6 +24,8 @@ cp example.env .env.production.local
 ```
 PORT=18900  /* local development port */
 REACT_APP_API_URL=http://localhost:9000 /* Dev API URL */
+REACT_APP_DOCS_URL=https://raw.githubusercontent.com/smswithoutborders/SMSWithoutBorders-DevFE/master/README.md /* docs markdown file url */
+
 ```
 ### Start development server
 

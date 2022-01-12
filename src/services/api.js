@@ -38,6 +38,12 @@ export const API = createApi({
         },
       }),
     }),
+    getDocs: builder.query({
+      query: () => ({
+        url: process.env.REACT_APP_DOCS_URL,
+        responseHandler: (response) => response.text(), // expect response type to be text/plain
+      }),
+    }),
   }),
 });
 
@@ -48,4 +54,5 @@ export const {
   useSignupMutation,
   useUpdateCredentialsMutation,
   useNewCredentialsMutation,
+  useGetDocsQuery,
 } = API;

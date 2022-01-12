@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { LogIn, SignUp, Dashboard, Credentials } from "pages";
+import { LogIn, SignUp, Dashboard, Credentials, Docs } from "pages";
 import { PrivateRoute } from "components";
 import { Toaster } from "react-hot-toast";
 
@@ -36,6 +36,7 @@ const App = () => {
           >
             <Route index element={<Credentials />} />
             <Route path="credentials" element={<Credentials />} />
+            <Route path="docs" element={<Docs />} />
           </Route>
         </Routes>
       </BrowserRouter>
