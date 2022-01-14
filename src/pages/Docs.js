@@ -47,7 +47,7 @@ const Docs = () => {
           refresh
         </button>
       </TabBar>
-      <div className="max-w-full p-6 prose">
+      <div className="p-6 prose max-w-max">
         <ReactMarkdown>{data}</ReactMarkdown>
       </div>
     </div>

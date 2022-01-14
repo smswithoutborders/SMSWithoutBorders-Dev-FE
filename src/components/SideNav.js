@@ -13,13 +13,14 @@ export const SideNavItem = styled(Link).attrs(({ $isactive }) => ({
   ),
 }))``;
 
-const SideNav = ({ open }) => {
+const SideNav = ({ open, className }) => {
   const [active, setActive] = useState(0);
   return (
     <nav
       className={clsx(
-        "hidden w-64 h-screen bg-white lg:block",
-        !open && "lg:hidden"
+        "hidden h-screen bg-white lg:block w-full",
+        !open && "lg:hidden",
+        className
       )}
     >
       <SideNavItem
