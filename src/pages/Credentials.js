@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react";
-import { TabBar, Loader, ClipBoard, ToggleButton } from "components";
+import { TabBar, Loader, ClipBoard, ToggleButton, Button } from "components";
 import { useSelector, useDispatch } from "react-redux";
 import { authSelector, credentialsSelector, saveCredentials } from "features";
 import { useNewCredentialsMutation } from "services/api";
@@ -64,19 +64,11 @@ const Credentials = () => {
     <div className="flex-1 w-full">
       <TabBar title="Credentials">
         {!credentials.authKey ? (
-          <button
-            className="px-6 py-1 text-white bg-indigo-500 rounded-md"
-            onClick={() => handleCredGeneration()}
-          >
-            new
-          </button>
+          <Button onClick={() => handleCredGeneration()}>new</Button>
         ) : (
-          <button
-            className="px-6 py-1 text-white bg-indigo-500 rounded-md"
-            onClick={() => handleCredGeneration()}
-          >
+          <Button onClick={() => handleCredGeneration()}>
             regenerate keys
-          </button>
+          </Button>
         )}
       </TabBar>
       <div className="p-6 prose">
@@ -149,12 +141,7 @@ const Credentials = () => {
           <Fragment>
             <h3>Generate Keys</h3>
             <p>Select new to generate your developer keys</p>
-            <button
-              className="px-8 py-1 text-white bg-indigo-500 rounded-md"
-              onClick={() => handleCredGeneration()}
-            >
-              new
-            </button>
+            <Button onClick={() => handleCredGeneration()}>new</Button>
           </Fragment>
         )}
       </div>

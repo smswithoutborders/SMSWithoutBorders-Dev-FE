@@ -1,5 +1,5 @@
-import React from "react";
-import { TabBar, Loader } from "components";
+import React, { Fragment } from "react";
+import { Button, TabBar, Loader } from "components";
 import { useGetDocsQuery } from "services/api";
 import { FiRefreshCcw } from "react-icons/fi";
 import ReactMarkdown from "react-markdown";
@@ -26,31 +26,23 @@ const Docs = () => {
           Sorry we could not get the latest docs. If error persists, please
           contact support
         </p>
-        <button
-          className="px-6 py-1 text-white bg-primary-500 rounded-md"
-          onClick={() => refetch()}
-        >
-          reload
-        </button>
+        <Button onClick={() => refetch()}>reload</Button>
       </div>
     );
   }
 
   return (
-    <div className="flex-1 w-full">
+    <Fragment>
       <TabBar title="Docs">
-        <button
-          className="flex items-center px-6 py-1 text-white bg-primary-500 rounded-md"
-          onClick={() => refetch()}
-        >
+        <Button onClick={() => refetch()}>
           <FiRefreshCcw className="mr-2" />
           refresh
-        </button>
+        </Button>
       </TabBar>
       <div className="p-6 prose max-w-max">
         <ReactMarkdown>{data}</ReactMarkdown>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

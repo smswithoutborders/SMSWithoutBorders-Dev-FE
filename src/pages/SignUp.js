@@ -242,7 +242,9 @@ const SignUp = () => {
                 )}
               />
             </FormGroup>
-            <Button disabled={!watch("acceptTerms")}>sign up</Button>
+            <Button className="w-full" disabled={!watch("acceptTerms")}>
+              sign up
+            </Button>
           </form>
 
           <p className="mt-4 text-sm text-center text-gray-600">

@@ -6,13 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { authSelector, clearAuth } from "features";
 import { clearCache } from "services/storage";
 import { Link } from "react-router-dom";
+import { Button } from ".";
 import styled from "styled-components";
 import clsx from "clsx";
 
 const NavLink = styled(Link).attrs(({ $isactive }) => ({
   className: clsx(
     "w-full px-4 py-6 flex items-center",
-    $isactive && "bg-indigo-500 text-white"
+    $isactive && "bg-blue-800 text-white"
   ),
 }))``;
 
@@ -116,13 +117,13 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
               </div>
               <p className="mr-4 text-sm">{user?.email}</p>
             </div>
-            <button
+            <Button
               onClick={() => handleLogOut()}
-              className="flex items-center p-2 text-sm text-white bg-indigo-500 rounded-lg"
+              className="text-sm rounded-lg"
             >
               <FiLogOut className="mr-1 align-middle" />
               <span>Logout</span>
-            </button>
+            </Button>
           </div>
         </div>
       )}

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 export const SideNavItem = styled(Link).attrs(({ $isactive }) => ({
   className: clsx(
     "w-full px-4 py-3 flex items-center",
-    $isactive && "bg-indigo-500 text-white"
+    $isactive && "bg-blue-800 text-white"
   ),
 }))``;
 

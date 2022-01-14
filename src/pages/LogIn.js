@@ -187,7 +187,7 @@ const LogIn = () => {
                 )}
               />
             </FormGroup>
-            <Button>login</Button>
+            <Button className="w-full">login</Button>
           </form>
 
           <p className="mt-4 text-sm text-center text-gray-600">
