@@ -7,8 +7,8 @@ import { setCache, getCache, clearCache } from "services/storage";
 import * as yup from "yup";
 import { useLoginMutation } from "services/api";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { saveAuth, saveCredentials } from "features";
+import { useDispatch, useSelector } from "react-redux";
+import { saveAuth, saveCredentials, authSelector } from "features";
 import {
   ErrorMessage,
   FormGroup,
@@ -43,8 +43,13 @@ const LogIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const auth = useSelector(authSelector);
 
   useEffect(() => {
+    // if logged in then redirect to dashboard
+    if (auth.sessionID) {
+      navigate("/dashboard");
+    }
     // get the stored cache to repopulate
     const cache = getCache();
     if (cache && cache.session_id) {
@@ -60,7 +65,7 @@ const LogIn = () => {
       });
       clearCache();
     }
-  }, [setValue, dispatch, navigate]);
+  }, [setValue, dispatch, navigate, auth.sessionID]);
 
   const handleLogin = async (data) => {
     setCache(data);
@@ -187,7 +192,7 @@ const LogIn = () => {
 
           <p className="mt-4 text-sm text-center text-gray-600">
             Dont have an account? &nbsp;
-            <Link to="/signup" className="text-indigo-500">
+            <Link to="/signup" className="text-blue-800">
               Sign Up
             </Link>
           </p>

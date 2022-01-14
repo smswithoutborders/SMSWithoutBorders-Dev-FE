@@ -24,7 +24,7 @@ export const Input = styled.input.attrs((props) => ({
     "w-full text-sm px-3 py-2 block rounded-md border-gray-300 text-gray-500 shadow-sm focus:ring",
     props.error
       ? "border-red-500 focus:border-red-500 focus:ring-red-200"
-      : "focus:border-indigo-400 focus:ring-indigo-200"
+      : "focus:border-blue-400 focus:ring-blue-200"
   ),
 }))``;
 
@@ -35,7 +35,7 @@ export const Label = styled.label.attrs({
 export const CheckBox = styled.input.attrs((props) => ({
   type: "checkbox",
   className: clsx(
-    "rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50",
+    "rounded border-gray-300 text-blue-800 shadow-sm focus:border-blue-500 focus:ring focus:ring-offset-0 focus:ring-blue-200 focus:ring-opacity-50",
     props.error && "border-red-500 focus:border-red-500"
   ),
 }))``;
@@ -45,7 +45,7 @@ export const Button = styled.button.attrs(({ className, disabled }) => ({
     "px-8 py-2 text-lg border-0 rounded-lg focus:outline-none block w-full",
     disabled
       ? "text-gray-500 bg-gray-300"
-      : "text-white bg-indigo-600 hover:bg-indigo-700",
+      : "text-white bg-blue-800 hover:bg-blue-900",
     className
   ),
 }))``;

@@ -8,6 +8,8 @@ import { setCache, getCache, clearCache } from "services/storage";
 import * as yup from "yup";
 import { useSignupMutation } from "services/api";
 import { useNavigate, Link } from "react-router-dom";
+import { authSelector } from "features";
+import { useSelector } from "react-redux";
 
 import {
   ErrorMessage,
@@ -37,6 +39,9 @@ const schema = yup.object({
 const SignUp = () => {
   const [toggle, setToggle] = useState(false);
   const [toggle2, setToggle2] = useState(false);
+  const [signup, { isLoading, isSuccess }] = useSignupMutation();
+  const auth = useSelector(authSelector);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -50,6 +55,10 @@ const SignUp = () => {
   });
 
   useEffect(() => {
+    // if logged in then redirect to dashboard
+    if (auth.sessionID) {
+      navigate("/dashboard");
+    }
     // get the stored user creds to repopulate
     const cache = getCache();
     if (cache && cache.email) {
@@ -67,10 +76,7 @@ const SignUp = () => {
       });
       clearCache();
     }
-  }, [setValue]);
-
-  const [signup, { isLoading, isSuccess }] = useSignupMutation();
-  const navigate = useNavigate();
+  }, [setValue, auth.sessionID, navigate]);
 
   const handleSignUp = async (data) => {
     setCache(data);
@@ -241,7 +247,7 @@ const SignUp = () => {
 
           <p className="mt-4 text-sm text-center text-gray-600">
             Already have an account? &nbsp;
-            <Link to="/login" className="text-indigo-500">
+            <Link to="/login" className="text-blue-800">
               login
             </Link>
           </p>

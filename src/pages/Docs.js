@@ -27,7 +27,7 @@ const Docs = () => {
           contact support
         </p>
         <button
-          className="px-6 py-1 text-white bg-indigo-500 rounded-md"
+          className="px-6 py-1 text-white bg-primary-500 rounded-md"
           onClick={() => refetch()}
         >
           reload
@@ -40,7 +40,7 @@ const Docs = () => {
     <div className="flex-1 w-full">
       <TabBar title="Docs">
         <button
-          className="flex items-center px-6 py-1 text-white bg-indigo-500 rounded-md"
+          className="flex items-center px-6 py-1 text-white bg-primary-500 rounded-md"
           onClick={() => refetch()}
         >
           <FiRefreshCcw className="mr-2" />
