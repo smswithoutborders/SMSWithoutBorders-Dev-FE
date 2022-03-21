@@ -1,13 +1,13 @@
 import React from "react";
-import { authSelector } from "features";
-import { useSelector } from "react-redux";
+import { useCookies } from "react-cookie";
 import { useLocation, Navigate } from "react-router-dom";
 
-export const PrivateRoute = ({ children }) => {
-  const auth = useSelector(authSelector);
+export const RequireAuth = ({ children }) => {
   const location = useLocation();
+  const cookieName = "SWOB-DEV-FE";
+  const [cookies] = useCookies([cookieName]);
 
-  return auth.sessionID ? (
+  return cookies[cookieName] ? (
     children
   ) : (
     <Navigate to="/login" replace state={{ path: location.pathname }} />
