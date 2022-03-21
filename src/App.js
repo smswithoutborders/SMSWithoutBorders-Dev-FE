@@ -1,14 +1,15 @@
 import React, { Fragment } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LogIn, SignUp, Dashboard, Credentials, Docs } from "pages";
-import { PrivateRoute } from "components";
+import { RequireAuth } from "components";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <Fragment>
       <Toaster
-        position="bottom-right"
+        position="top-right"
+        containerClassName="mt-20"
         reverseOrder={false}
         toastOptions={{
           duration: 5000,
@@ -19,9 +20,9 @@ const App = () => {
           <Route
             path="/"
             element={
-              <PrivateRoute>
+              <RequireAuth>
                 <Navigate to="/dashboard" />
-              </PrivateRoute>
+              </RequireAuth>
             }
           />
           <Route path="/login" element={<LogIn />} />
@@ -29,9 +30,9 @@ const App = () => {
           <Route
             path="dashboard"
             element={
-              <PrivateRoute>
+              <RequireAuth>
                 <Dashboard />
-              </PrivateRoute>
+              </RequireAuth>
             }
           >
             <Route index element={<Credentials />} />

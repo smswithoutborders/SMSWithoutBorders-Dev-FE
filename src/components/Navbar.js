@@ -5,10 +5,12 @@ import { FiLogOut, FiMenu, FiX, FiShield, FiFile } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 import { authSelector, clearAuth } from "features";
 import { clearCache } from "services/storage";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import { Button } from ".";
 import styled from "styled-components";
 import clsx from "clsx";
+import toast from "react-hot-toast";
 
 const NavLink = styled(Link).attrs(({ $isactive }) => ({
   className: clsx(
@@ -134,10 +136,14 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
 const Navbar = ({ open, onToggle }) => {
   const dispatch = useDispatch();
   const user = useSelector(authSelector);
+  const cookieName = "SWOB-DEV-FE";
+  const [, , removeCookies] = useCookies([cookieName]);
 
   const handleLogOut = () => {
+    removeCookies([cookieName]);
     dispatch(clearAuth());
     clearCache();
+    toast.success("Logout successful");
   };
 
   return (
