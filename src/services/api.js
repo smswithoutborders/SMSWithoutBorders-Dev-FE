@@ -27,21 +27,9 @@ export const API = createApi({
       }),
     }),
     newCredentials: builder.mutation({
-      query: ({ id, sessionID }) => ({
-        url: `/users/${id}/token`,
-        method: "POST",
-        body: {
-          session_id: sessionID,
-        },
-      }),
-    }),
-    updateCredentials: builder.mutation({
-      query: ({ id, sessionID }) => ({
-        url: `/users/${id}/token`,
-        method: "PUT",
-        body: {
-          session_id: sessionID,
-        },
+      query: ({ uid }) => ({
+        url: `/users/${uid}/tokens`,
+        method: "GET",
       }),
     }),
     getDocs: builder.query({
