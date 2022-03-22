@@ -1,21 +1,23 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, createAction } from "@reduxjs/toolkit";
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { API } from "../services/api";
-import authReducer from "./auth";
-import credsReducer from "./credentials";
+import { sessionExpiryChecker, RequestErrorHandler } from "utils";
+import rootReducer from "./reducers";
+
+export const resetStore = createAction("RESET_STORE");
 
 export const store = configureStore({
-  reducer: {
-    // Add the generated reducer as a specific top-level slice
-    [API.reducerPath]: API.reducer,
-    auth: authReducer,
-    credentials: credsReducer,
-  },
+  reducer: rootReducer,
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(API.middleware),
+    getDefaultMiddleware().concat(
+      API.middleware,
+      sessionExpiryChecker,
+      RequestErrorHandler
+    ),
+  devTools: process.env.NODE_ENV !== "production" ? true : false,
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
