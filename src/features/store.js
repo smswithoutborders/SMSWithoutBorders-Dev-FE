@@ -1,11 +1,9 @@
-import { configureStore, createAction } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { API } from "../services/api";
 import { RequestErrorHandler } from "utils";
 import rootReducer from "./reducers";
-
-export const resetStore = createAction("RESET_STORE");
 
 export const store = configureStore({
   reducer: rootReducer,

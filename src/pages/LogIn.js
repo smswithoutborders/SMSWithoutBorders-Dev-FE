@@ -3,12 +3,11 @@ import logo from "images/logo.png";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useCookies } from "hooks";
 import * as yup from "yup";
 import { useLoginMutation } from "services/api";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { saveAuth, saveCredentials } from "features";
+import { useDispatch, useSelector } from "react-redux";
+import { saveAuth, saveCredentials, authSelector } from "features";
 import {
   Input,
   Label,
@@ -27,11 +26,11 @@ const schema = yup.object({
 });
 
 const LogIn = () => {
-  const { cookies, setCookie } = useCookies();
   const [login, { isLoading, isSuccess }] = useLoginMutation();
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const auth = useSelector(authSelector);
 
   const {
     register,
@@ -43,23 +42,22 @@ const LogIn = () => {
 
   useEffect(() => {
     // if logged in then redirect to dashboard
-    if (cookies && location.state && location.state.path) {
+    if (auth.uid && location.state && location.state.path) {
       /*
-        redirect users if they initially tried to access a private route
-        without permission
-      */
+          redirect users if they initially tried to access a private route
+          without permission
+        */
       navigate(location.state.path);
-    } else if (cookies) {
+    } else if (auth.uid) {
       navigate("/dashboard");
     }
-  }, [navigate, cookies, location.state]);
+  }, [dispatch, navigate, auth.uid, location.state]);
 
   const handleLogin = async (data) => {
     try {
       const response = await login(data).unwrap();
       toast.success("Login successful");
       // create a cookie for this session
-      setCookie(response.uid);
       dispatch(saveAuth(response));
       dispatch(saveCredentials(response));
       // check useEffect above for redirect which should happen at this stage

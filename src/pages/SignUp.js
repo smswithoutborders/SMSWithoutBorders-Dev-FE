@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import logo from "images/logo.png";
 import toast from "react-hot-toast";
-import { useCookies } from "hooks";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -19,6 +18,8 @@ import {
   ErrorMessage,
   PasswordInput,
 } from "components";
+import { useDispatch, useSelector } from "react-redux";
+import { authSelector } from "features";
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -34,10 +35,11 @@ const schema = yup.object({
 });
 
 const SignUp = () => {
-  const { cookies } = useCookies();
   const [signup, { isLoading, isSuccess }] = useSignupMutation();
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+  const auth = useSelector(authSelector);
 
   const {
     register,
@@ -51,16 +53,16 @@ const SignUp = () => {
 
   useEffect(() => {
     // if logged in then redirect to dashboard
-    if (cookies && location.state && location.state.path) {
+    if (auth.uid && location.state && location.state.path) {
       /*
-        redirect users if they initially tried to access a private route
-        without permission
-      */
+          redirect users if they initially tried to access a private route
+          without permission
+        */
       navigate(location.state.path);
-    } else if (cookies) {
+    } else if (auth.uid) {
       navigate("/dashboard");
     }
-  }, [navigate, cookies, location.state]);
+  }, [dispatch, navigate, auth.uid, location.state]);
 
   const handleSignUp = async (data) => {
     try {
