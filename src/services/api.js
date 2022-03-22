@@ -35,6 +35,10 @@ export const API = createApi({
     getDocs: builder.query({
       query: () => ({
         url: process.env.REACT_APP_DOCS_URL,
+        credentials: "omit",
+        headers: {
+          "content-type": "text/plain",
+        },
         responseHandler: (response) => response.text(), // expect response type to be text/plain
       }),
     }),
