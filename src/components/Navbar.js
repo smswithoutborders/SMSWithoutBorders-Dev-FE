@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import logo from "images/logo.png";
 import PropTypes from "prop-types";
 import { FiLogOut, FiMenu, FiX, FiShield, FiFile } from "react-icons/fi";
@@ -6,17 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { authSelector, logout } from "features";
 import { clearCache } from "services/storage";
 import { Link } from "react-router-dom";
-import { Button } from ".";
-import styled from "styled-components";
-import clsx from "clsx";
+import { Button } from "./shared";
+import { NavLink } from "./NavLink";
 import toast from "react-hot-toast";
-
-const NavLink = styled(Link).attrs(({ $isactive }) => ({
-  className: clsx(
-    "w-full px-4 py-6 flex items-center",
-    $isactive && "bg-blue-800 text-white"
-  ),
-}))``;
 
 const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
   return (
@@ -58,13 +50,6 @@ const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
 // all parameters are  gotten from the parent Dashboard component
 
 const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
-  const [active, setActive] = useState(0);
-
-  function toggleNav(index) {
-    setActive(index);
-    onToggle();
-  }
-
   return (
     <Fragment>
       <nav className="px-4 py-5 text-white bg-gray-800 md:hidden">
@@ -91,19 +76,11 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
       {!open && (
         <div className="absolute z-50 flex flex-col w-full h-full bg-white lg:hidden">
           <div className="">
-            <NavLink
-              to="credentials"
-              $isactive={active === 0}
-              onClick={() => toggleNav(0)}
-            >
+            <NavLink to="credentials" onClick={() => onToggle()}>
               <FiShield size={20} className="mr-2" />
               <span className="">Credentials</span>
             </NavLink>
-            <NavLink
-              to="docs"
-              $isactive={active === 1}
-              onClick={() => toggleNav(1)}
-            >
+            <NavLink to="docs" onClick={() => onToggle()}>
               <FiFile size={20} className="mr-2" />
               <span className="">Docs</span>
             </NavLink>
