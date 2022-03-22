@@ -1,6 +1,5 @@
 import { isRejectedWithValue } from "@reduxjs/toolkit";
-import { resetStore } from "features";
-import { clearCache } from "services";
+import { logout } from "features";
 import toast from "react-hot-toast";
 // handle general API request errors
 export const RequestErrorHandler = (store) => (next) => (action) => {
@@ -16,13 +15,13 @@ export const RequestErrorHandler = (store) => (next) => (action) => {
           toast.error(
             "Sorry you are not authorized to use this service. Please contact support"
           );
-          // reset store/logout
-          store.dispatch(resetStore());
-          // clear local cache if any
-          clearCache();
+          // reset store
+          store.dispatch(logout());
           break;
         case 403:
-          toast.error("");
+          toast.error(
+            "Forbidden. Sorry your authorization may have expired. Please logout and login again or reload this page"
+          );
           break;
         case 404:
           toast.error(
