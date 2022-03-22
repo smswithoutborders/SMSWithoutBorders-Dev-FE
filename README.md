@@ -26,8 +26,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * PORT -> development port
 * REACT_APP_API_URL ->  Backend API URL
 * REACT_APP_API_VERSION -> API version
-* REACT_APP_COOKIE_NAME -> Session cookie name
-* REACT_APP_SESSION_DURATION -> How long session cookie lasts in milliseconds
 * REACT_APP_DOCS_URL -> Link to hosted privacy policy markdown file
 
 ## Start development server
