@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import logo from "images/logo.png";
 import toast from "react-hot-toast";
-import PasswordStrengthBar from "react-password-strength-bar";
+import { useCookies } from "hooks";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { setCache, getCache, clearCache } from "services/storage";
 import * as yup from "yup";
 import { useSignupMutation } from "services/api";
-import { useNavigate, Link } from "react-router-dom";
-import { authSelector } from "features";
-import { useSelector } from "react-redux";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 import {
-  ErrorMessage,
-  FormGroup,
   Input,
   Label,
   Loader,
-  CheckBox,
   Button,
-  ToggleButton,
+  CheckBox,
   Container,
+  FormGroup,
+  ErrorMessage,
+  PasswordInput,
 } from "components";
 
 const schema = yup.object({
@@ -37,16 +34,14 @@ const schema = yup.object({
 });
 
 const SignUp = () => {
-  const [toggle, setToggle] = useState(false);
-  const [toggle2, setToggle2] = useState(false);
+  const { cookies } = useCookies();
   const [signup, { isLoading, isSuccess }] = useSignupMutation();
-  const auth = useSelector(authSelector);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     register,
     handleSubmit,
-    setValue,
     control,
     watch,
     formState: { errors },
@@ -56,71 +51,30 @@ const SignUp = () => {
 
   useEffect(() => {
     // if logged in then redirect to dashboard
-    if (auth.sessionID) {
+    if (cookies && location.state && location.state.path) {
+      /*
+        redirect users if they initially tried to access a private route
+        without permission
+      */
+      navigate(location.state.path);
+    } else if (cookies) {
       navigate("/dashboard");
     }
-    // get the stored user creds to repopulate
-    const cache = getCache();
-    if (cache && cache.email) {
-      setValue("email", cache.email, {
-        shouldValidate: true,
-      });
-      setValue("password", cache.password, {
-        shouldValidate: true,
-      });
-      setValue("confirmPassword", cache.confirmPassword, {
-        shouldValidate: true,
-      });
-      setValue("acceptTerms", cache.acceptTerms, {
-        shouldValidate: true,
-      });
-      clearCache();
-    }
-  }, [setValue, auth.sessionID, navigate]);
+  }, [navigate, cookies, location.state]);
 
   const handleSignUp = async (data) => {
-    setCache(data);
     try {
       await signup(data).unwrap();
+      toast.success("Account created");
     } catch (error) {
-      switch (error.status) {
-        case 400:
-          toast.error("An error occured. Please contact support");
-          break;
-        case 401:
-          toast.error(
-            "Sorry you are not authorized to use this service. Please contact support"
-          );
-          break;
-        case 409:
-          toast.error(
-            "There is a possible duplicate of this account please contact support"
-          );
-          break;
-
-        case 429:
-          toast.error(
-            "Too many failed attempts please wait a while and try again"
-          );
-          break;
-        case 500:
-          toast.error("A critical error occured. Please contact support");
-          break;
-        case "FETCH_ERROR":
-          toast.error("An error occured, please check your network try again");
-          break;
-        default:
-          toast.error("An error occured, please try again");
-      }
+      // we handle errors with middleware
     }
   };
 
   // when making requests show loading indicator
   if (isLoading) return <Loader message="processing please wait ..." />;
 
-  // if user is successfully registered remove cached data and welcome them
   if (isSuccess) {
-    clearCache();
     return (
       <Container className="grid h-screen place-items-center">
         <div className="container flex flex-wrap items-center mx-auto">
@@ -152,108 +106,90 @@ const SignUp = () => {
   }
 
   return (
-    <Container className="grid h-screen place-items-center">
-      <div className="container flex flex-wrap items-center mx-auto">
-        <div className="flex flex-col w-full p-8 m-4 mt-10 bg-white shadow-lg lg:w-2/6 md:w-1/2 rounded-xl md:mx-auto md:mt-0">
-          <div className="mb-4">
-            <img src={logo} alt="logo" className="h-24 mx-auto my-8" />
-            <h1 className="text-2xl font-bold text-center">
-              SMSWithoutBorders
-            </h1>
-            <p className="my-1 text-2xl font-light tracking-wide text-center">
-              Developer
-            </p>
-          </div>
-          <form onSubmit={handleSubmit(handleSignUp)}>
-            <FormGroup>
-              <Label htmlFor="email">Email address</Label>
-              <Input
-                type="email"
-                name="email"
-                {...register("email")}
-                error={errors.email}
-              />
-              {errors.email && (
-                <ErrorMessage>{errors.email?.message}</ErrorMessage>
-              )}
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Input
-                  type={toggle ? "text" : "password"}
-                  name="password"
-                  {...register("password")}
-                  error={errors.password}
-                />
-                <ToggleButton
-                  className="absolute top-3 right-3"
-                  toggleFunc={setToggle}
-                  value={toggle}
-                />
-              </div>
-              {errors.password && (
-                <ErrorMessage>{errors.password?.message}</ErrorMessage>
-              )}
-              <PasswordStrengthBar password={watch("password")} />
-            </FormGroup>
-
-            <FormGroup>
-              <Label htmlFor="password">Confirm Password</Label>
-              <div className="relative">
-                <Input
-                  type={toggle2 ? "text" : "password"}
-                  name="confirmPassword"
-                  {...register("confirmPassword")}
-                  error={errors.confirmPassword}
-                />
-                <ToggleButton
-                  className="absolute top-3 right-3"
-                  toggleFunc={setToggle2}
-                  value={toggle2}
-                />
-              </div>
-              {errors.confirmPassword && (
-                <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
-              )}
-              <PasswordStrengthBar password={watch("confirmPassword")} />
-            </FormGroup>
-
-            <FormGroup>
-              <Controller
-                control={control}
-                name="acceptTerms"
-                render={({ field: { value, onChange } }) => (
-                  <Label className="inline-flex">
-                    <CheckBox
-                      value={value}
-                      defaultChecked={watch("acceptTerms")}
-                      onChange={onChange}
-                      className="mt-0.5"
-                    />
-                    <div className="ml-2 text-sm">
-                      <p className="font-medium">Terms and Conditions</p>
-                      <p className="text-sm">
-                        By signing up I agree to the <a href="#terms">terms</a>{" "}
-                        of use
-                      </p>
-                    </div>
-                  </Label>
-                )}
-              />
-            </FormGroup>
-            <Button className="w-full" disabled={!watch("acceptTerms")}>
-              sign up
-            </Button>
-          </form>
-
-          <p className="mt-4 text-sm text-center text-gray-600">
-            Already have an account? &nbsp;
-            <Link to="/login" className="text-blue-800">
-              login
-            </Link>
+    <Container className="bg-gray-100 md:py-20 2xl:py-0 xl:min-h-screen lg:grid lg:place-items-center">
+      <div className="container max-w-md p-8 mx-auto bg-white shadow-lg md:rounded-xl lg:my-10">
+        <div className="mb-8">
+          <img src={logo} alt="logo" className="h-32 mx-auto my-6" />
+          <h1 className="text-2xl font-bold text-center">SMSWithoutBorders</h1>
+          <p className="my-1 text-2xl font-light tracking-wide text-center">
+            Developer
           </p>
         </div>
+        <form onSubmit={handleSubmit(handleSignUp)}>
+          <FormGroup>
+            <Label htmlFor="email">Email address</Label>
+            <Input
+              type="email"
+              name="email"
+              {...register("email")}
+              error={errors.email}
+            />
+            {errors.email && (
+              <ErrorMessage>{errors.email?.message}</ErrorMessage>
+            )}
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="password" required>
+              Password
+            </Label>
+            <PasswordInput
+              name="password"
+              {...register("password")}
+              error={errors.password}
+            />
+            {errors.password && (
+              <ErrorMessage>{errors.password?.message}</ErrorMessage>
+            )}
+          </FormGroup>
+
+          <FormGroup>
+            <Label htmlFor="password" required>
+              Confirm Password
+            </Label>
+            <PasswordInput
+              name="confirmPassword"
+              {...register("confirmPassword")}
+              error={errors.confirmPassword}
+            />
+            {errors.confirmPassword && (
+              <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
+            )}
+          </FormGroup>
+
+          <FormGroup>
+            <Controller
+              control={control}
+              name="acceptTerms"
+              render={({ field: { value, onChange } }) => (
+                <div className="inline-flex">
+                  <CheckBox
+                    value={value}
+                    defaultChecked={watch("acceptTerms")}
+                    onChange={onChange}
+                    className="mt-0.5"
+                  />
+                  <div className="ml-2 text-sm">
+                    <p className="font-medium">Terms and Conditions</p>
+                    <p className="text-sm">
+                      By signing up I agree to the <a href="#terms">terms</a> of
+                      use
+                    </p>
+                  </div>
+                </div>
+              )}
+            />
+          </FormGroup>
+          <Button className="w-full" disabled={!watch("acceptTerms")}>
+            sign up
+          </Button>
+        </form>
+
+        <p className="mt-4 text-sm text-center text-gray-600">
+          Already have an account? &nbsp;
+          <Link to="/login" className="text-blue-800">
+            login
+          </Link>
+        </p>
       </div>
     </Container>
   );
