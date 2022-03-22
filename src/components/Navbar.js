@@ -3,9 +3,9 @@ import logo from "images/logo.png";
 import PropTypes from "prop-types";
 import { FiLogOut, FiMenu, FiX, FiShield, FiFile } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
-import { authSelector, clearAuth } from "features";
+import { authSelector, resetStore } from "features";
 import { clearCache } from "services/storage";
-import { useCookies } from "react-cookie";
+import { useCookies } from "hooks";
 import { Link } from "react-router-dom";
 import { Button } from ".";
 import styled from "styled-components";
@@ -136,12 +136,10 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
 const Navbar = ({ open, onToggle }) => {
   const dispatch = useDispatch();
   const user = useSelector(authSelector);
-  const cookieName = "SWOB-DEV-FE";
-  const [, , removeCookies] = useCookies([cookieName]);
-
+  const { removeCookie } = useCookies();
   const handleLogOut = () => {
-    removeCookies([cookieName]);
-    dispatch(clearAuth());
+    removeCookie();
+    dispatch(resetStore());
     clearCache();
     toast.success("Logout successful");
   };

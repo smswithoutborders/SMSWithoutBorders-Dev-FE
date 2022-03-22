@@ -1,13 +1,12 @@
 import React from "react";
-import { useCookies } from "react-cookie";
+import { useCookies } from "hooks";
 import { useLocation, Navigate } from "react-router-dom";
 
 export const RequireAuth = ({ children }) => {
   const location = useLocation();
-  const cookieName = "SWOB-DEV-FE";
-  const [cookies] = useCookies([cookieName]);
+  const { cookies } = useCookies();
 
-  return cookies[cookieName] ? (
+  return cookies ? (
     children
   ) : (
     <Navigate to="/login" replace state={{ path: location.pathname }} />

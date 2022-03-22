@@ -4,7 +4,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   id: "",
   email: "",
-  sessionID: "",
 };
 
 export const authSlice = createSlice({
@@ -12,12 +11,11 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     saveAuth: (state, action) => {
-      const { id, email, session_id } = action.payload;
+      const { id, email } = action.payload;
       return {
         ...state,
         id,
         email,
-        sessionID: session_id,
       };
     },
     clearAuth: (state) => {

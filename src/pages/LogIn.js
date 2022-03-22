@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import logo from "images/logo.png";
 import toast from "react-hot-toast";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useCookies } from "react-cookie";
+import { useCookies } from "hooks";
 import * as yup from "yup";
 import { useLoginMutation } from "services/api";
 import { useNavigate, useLocation, Link } from "react-router-dom";
@@ -14,7 +14,6 @@ import {
   Label,
   Loader,
   Button,
-  CheckBox,
   Container,
   FormGroup,
   ErrorMessage,
@@ -28,79 +27,44 @@ const schema = yup.object({
 });
 
 const LogIn = () => {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-  const cookieName = "SWOB-DEV-FE";
-  const [cookies, setCookie] = useCookies([cookieName]);
+  const { cookies, setCookie } = useCookies();
   const [login, { isLoading, isSuccess }] = useLoginMutation();
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   useEffect(() => {
-    const session = cookies[cookieName];
     // if logged in then redirect to dashboard
-    if (session && location.state && location.state.path) {
+    if (cookies && location.state && location.state.path) {
       /*
         redirect users if they initially tried to access a private route
         without permission
       */
       navigate(location.state.path);
-    } else if (session) {
+    } else if (cookies) {
       navigate("/dashboard");
     }
   }, [navigate, cookies, location.state]);
 
   const handleLogin = async (data) => {
     try {
-      const user = await login(data).unwrap();
+      const response = await login(data).unwrap();
       toast.success("Login successful");
       // create a cookie for this session
-      setCookie("SWOB-DEV-FE", user.session_id, {
-        maxAge: 2 * 60 * 60 * 1000,
-      });
-      dispatch(saveAuth(user));
-      dispatch(saveCredentials(user));
-      // if user wants to be remembered then cache their session
-      // TODO: handle remember me
+      setCookie(response.uid);
+      dispatch(saveAuth(response));
+      dispatch(saveCredentials(response));
+      // check useEffect above for redirect which should happen at this stage
     } catch (error) {
-      switch (error.status) {
-        case 400:
-          toast.error("An error occured. Please contact support");
-          break;
-        case 401:
-          toast.error(
-            "Sorry you are not authorized to use this service. Please contact support"
-          );
-          break;
-        case 409:
-          toast.error(
-            "There is a possible duplicate of this account please contact support"
-          );
-          break;
-
-        case 429:
-          toast.error(
-            "Too many failed attempts please wait a while and try again"
-          );
-          break;
-        case 500:
-          toast.error("A critical error occured. Please contact support");
-          break;
-        case "FETCH_ERROR":
-          toast.error(
-            "An error occured, please check your network and try again"
-          );
-          break;
-        default:
-          toast.error("An error occured, please try again");
-      }
+      // we handle errors with middleware
     }
   };
 
@@ -150,19 +114,6 @@ const LogIn = () => {
             {errors.password && (
               <ErrorMessage>{errors.password?.message}</ErrorMessage>
             )}
-          </FormGroup>
-
-          <FormGroup>
-            <Controller
-              control={control}
-              name="rememberMe"
-              render={({ field: { value, onChange } }) => (
-                <Label className="inline-flex items-center">
-                  <CheckBox value={value} onChange={onChange} />
-                  <span className="ml-2">remember me</span>
-                </Label>
-              )}
-            />
           </FormGroup>
           <Button className="w-full">login</Button>
         </form>
