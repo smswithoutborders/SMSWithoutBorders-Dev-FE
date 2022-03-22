@@ -1,7 +1,14 @@
 import React, { Fragment } from "react";
 import logo from "images/logo.png";
 import PropTypes from "prop-types";
-import { FiLogOut, FiMenu, FiX, FiShield, FiFile } from "react-icons/fi";
+import {
+  FiLogOut,
+  FiMenu,
+  FiX,
+  FiShield,
+  FiFile,
+  FiGrid,
+} from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 import { authSelector, logout } from "features";
 import { clearCache } from "services/storage";
@@ -76,6 +83,10 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
       {!open && (
         <div className="absolute z-50 flex flex-col w-full h-full bg-white lg:hidden">
           <div className="">
+            <NavLink to="projects" onClick={() => onToggle()}>
+              <FiGrid size={20} className="mr-2" />
+              <span className="">Projects</span>
+            </NavLink>
             <NavLink to="credentials" onClick={() => onToggle()}>
               <FiShield size={20} className="mr-2" />
               <span className="">Credentials</span>

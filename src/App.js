@@ -1,8 +1,16 @@
 import React, { Fragment } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { LogIn, SignUp, Dashboard, Credentials, Docs } from "pages";
 import { RequireAuth } from "components";
 import { Toaster } from "react-hot-toast";
+import {
+  Docs,
+  LogIn,
+  SignUp,
+  NotFound,
+  Projects,
+  Dashboard,
+  Credentials,
+} from "pages";
 
 const App = () => {
   return (
@@ -36,9 +44,11 @@ const App = () => {
             }
           >
             <Route index element={<Credentials />} />
+            <Route path="projects" element={<Projects />} />
             <Route path="credentials" element={<Credentials />} />
             <Route path="docs" element={<Docs />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </Fragment>

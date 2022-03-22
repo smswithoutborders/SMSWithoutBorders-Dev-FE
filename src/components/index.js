@@ -5,6 +5,7 @@ export * from "./ClipBoard";
 export * from "./ToolTip";
 export * from "./RequireAuth";
 export * from "./PasswordInput";
+export * from "./useTitle";
 export { default as Navbar } from "./Navbar";
 export { default as SideNav } from "./SideNav";
 export { default as TabBar } from "./TabBar";
