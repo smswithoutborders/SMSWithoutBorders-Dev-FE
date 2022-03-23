@@ -119,7 +119,7 @@ const SignUp = () => {
         </div>
         <form onSubmit={handleSubmit(handleSignUp)}>
           <FormGroup>
-            <Label htmlFor="email">Email address</Label>
+            <Label htmlFor="email" required>Email address</Label>
             <Input
               type="email"
               name="email"
@@ -172,7 +172,7 @@ const SignUp = () => {
                   />
                   <div className="ml-2 text-sm">
                     <p className="font-medium">Terms and Conditions</p>
-                    <p className="text-sm">
+                    <p className="text-sm text-gray-600">
                       By signing up I agree to the <a href="#terms">terms</a> of
                       use
                     </p>
