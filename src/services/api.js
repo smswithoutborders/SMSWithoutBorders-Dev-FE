@@ -32,6 +32,18 @@ export const API = createApi({
         method: "GET",
       }),
     }),
+    getProducts: builder.query({
+      query: ({ uid }) => ({
+        url: `/users/${uid}/projects`,
+        method: "GET",
+      }),
+    }),
+    subscription: builder.mutation({
+      query: ({ uid, product }) => ({
+        url: `/users/${uid}/projects/${product}`,
+        method: "POST",
+      }),
+    }),
     getDocs: builder.query({
       query: () => ({
         url: process.env.REACT_APP_DOCS_URL,
@@ -48,9 +60,11 @@ export const API = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
+  useGetDocsQuery,
   useLoginMutation,
   useSignupMutation,
-  useUpdateCredentialsMutation,
+  useGetProductsQuery,
+  useSubscriptionMutation,
   useNewCredentialsMutation,
-  useGetDocsQuery,
+  useUpdateCredentialsMutation,
 } = API;

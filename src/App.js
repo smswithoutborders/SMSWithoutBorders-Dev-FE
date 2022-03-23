@@ -7,7 +7,7 @@ import {
   LogIn,
   SignUp,
   NotFound,
-  Projects,
+  Products,
   Dashboard,
   Credentials,
 } from "pages";
@@ -43,8 +43,8 @@ const App = () => {
               </RequireAuth>
             }
           >
-            <Route index element={<Credentials />} />
-            <Route path="projects" element={<Projects />} />
+            <Route index element={<Navigate to="products" />} />
+            <Route path="products" element={<Products />} />
             <Route path="credentials" element={<Credentials />} />
             <Route path="docs" element={<Docs />} />
           </Route>

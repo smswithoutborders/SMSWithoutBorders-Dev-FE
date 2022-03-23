@@ -83,9 +83,9 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
       {!open && (
         <div className="absolute z-50 flex flex-col w-full h-full bg-white lg:hidden">
           <div className="">
-            <NavLink to="projects" onClick={() => onToggle()}>
+            <NavLink to="products" onClick={() => onToggle()}>
               <FiGrid size={20} className="mr-2" />
-              <span className="">Projects</span>
+              <span className="">Products</span>
             </NavLink>
             <NavLink to="credentials" onClick={() => onToggle()}>
               <FiShield size={20} className="mr-2" />

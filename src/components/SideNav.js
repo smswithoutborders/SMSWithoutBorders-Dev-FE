@@ -13,9 +13,9 @@ const SideNav = ({ open, className }) => {
         className
       )}
     >
-      <NavLink to="projects">
+      <NavLink to="products">
         <FiGrid size={20} className="mr-2" />
-        <span className="">Projects</span>
+        <span className="">Products</span>
       </NavLink>
       <NavLink to="credentials">
         <FiShield size={20} className="mr-2" />
