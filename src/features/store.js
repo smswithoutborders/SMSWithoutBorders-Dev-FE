@@ -30,6 +30,7 @@ export const store = configureStore({
 store.subscribe(() => {
   persistState({
     auth: store.getState().auth,
+    credentials: store.getState().credentials,
   });
 });
 
