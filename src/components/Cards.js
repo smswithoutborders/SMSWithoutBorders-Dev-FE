@@ -5,7 +5,12 @@ import { Button } from "./shared";
 import { FiX } from "react-icons/fi";
 import { BsArrowRight } from "react-icons/bs";
 
-export const ProductCard = ({ title, subscribed, handleSubscription }) => {
+export const ProductCard = ({
+  title,
+  subscribed,
+  handleSubscription,
+  handleUnSubscription,
+}) => {
   const [open, setOpen] = useState(false);
   return (
     <div
@@ -34,7 +39,11 @@ export const ProductCard = ({ title, subscribed, handleSubscription }) => {
             </p>
 
             {subscribed ? (
-              <Button outline className="py-1">
+              <Button
+                outline
+                className="py-1"
+                onClick={() => handleUnSubscription(title)}
+              >
                 unsubscribe
               </Button>
             ) : (
@@ -62,7 +71,10 @@ export const ProductCard = ({ title, subscribed, handleSubscription }) => {
             </button>
 
             {subscribed ? (
-              <button className="col-span-1 text-sm text-blue-800">
+              <button
+                className="col-span-1 text-sm text-blue-800"
+                onClick={() => handleUnSubscription(title)}
+              >
                 unsubscribe
               </button>
             ) : (

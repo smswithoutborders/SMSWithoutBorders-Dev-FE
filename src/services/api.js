@@ -34,14 +34,20 @@ export const API = createApi({
     }),
     getProducts: builder.query({
       query: ({ uid }) => ({
-        url: `/users/${uid}/projects`,
+        url: `/users/${uid}/products`,
         method: "GET",
       }),
     }),
     subscription: builder.mutation({
       query: ({ uid, product }) => ({
-        url: `/users/${uid}/projects/${product}`,
+        url: `/users/${uid}/products/${product}`,
         method: "POST",
+      }),
+    }),
+    unSubscription: builder.mutation({
+      query: ({ uid, product }) => ({
+        url: `/users/${uid}/products/${product}`,
+        method: "DELETE",
       }),
     }),
     getDocs: builder.query({
@@ -65,6 +71,7 @@ export const {
   useSignupMutation,
   useGetProductsQuery,
   useSubscriptionMutation,
+  useUnSubscriptionMutation,
   useNewCredentialsMutation,
   useUpdateCredentialsMutation,
 } = API;

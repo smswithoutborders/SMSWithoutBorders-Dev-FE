@@ -2,7 +2,11 @@ import React, { Fragment } from "react";
 import { TabBar, ProductCard, Button, Loader, useTitle } from "components";
 import { useSelector } from "react-redux";
 import { authSelector } from "features";
-import { useGetProductsQuery, useSubscriptionMutation } from "services";
+import {
+  useGetProductsQuery,
+  useSubscriptionMutation,
+  useUnSubscriptionMutation,
+} from "services";
 import toast from "react-hot-toast";
 
 const Products = () => {
@@ -19,6 +23,8 @@ const Products = () => {
   });
 
   const [subscription, { isLoading: subscribing }] = useSubscriptionMutation();
+  const [unSubscription, { isLoading: unSubscribing }] =
+    useUnSubscriptionMutation();
 
   const { subscribed = [], unsubscribed = [] } = data;
 
@@ -36,7 +42,21 @@ const Products = () => {
     }
   }
 
-  if (isLoading || isFetching || subscribing) {
+  async function handleUnSubscription(product) {
+    const request = {
+      uid: auth.uid,
+      product,
+    };
+    try {
+      await unSubscription(request).unwrap();
+      toast.success(`Success, you have been unsubscribed from ${product}`);
+      refetch();
+    } catch (error) {
+      // we handle errors with middleware
+    }
+  }
+
+  if (isLoading || isFetching || subscribing || unSubscribing) {
     return <Loader />;
   }
 
@@ -65,6 +85,7 @@ const Products = () => {
                 key={product.name}
                 title={product.name}
                 handleSubscription={handleSubscription}
+                handleUnSubscription={handleUnSubscription}
               />
             ))}
             {subscribed.map((product) => (
@@ -73,6 +94,7 @@ const Products = () => {
                 key={product.name}
                 title={product.name}
                 handleSubscription={handleSubscription}
+                handleUnSubscription={handleUnSubscription}
               />
             ))}
           </Fragment>
