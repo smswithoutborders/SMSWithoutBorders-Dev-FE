@@ -6,6 +6,7 @@ export const RequestErrorHandler = (store) => (next) => (action) => {
   // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
   if (isRejectedWithValue(action)) {
     const { status, originalStatus } = action.payload;
+    const { endpointName } = action.meta.arg;
     if (originalStatus) {
       switch (originalStatus) {
         case 400:
@@ -29,9 +30,18 @@ export const RequestErrorHandler = (store) => (next) => (action) => {
           );
           break;
         case 409:
-          toast.error(
-            "There is a possible duplicate of this account please contact support"
-          );
+          switch (endpointName) {
+            case "subscription":
+              toast.error(
+                "Sorry you are already subscribed to this product. please contact support"
+              );
+              break;
+            default:
+              toast.error(
+                "There is a possible duplicate of this account please contact support"
+              );
+          }
+
           break;
         case 429:
           toast.error(
