@@ -83,7 +83,9 @@ const Products = () => {
             {unsubscribed.map((product) => (
               <ProductCard
                 key={product.name}
-                title={product.name}
+                name={product.name}
+                label={product.label}
+                docURL={product.doc}
                 handleSubscription={handleSubscription}
                 handleUnSubscription={handleUnSubscription}
               />
@@ -92,7 +94,9 @@ const Products = () => {
               <ProductCard
                 subscribed={true}
                 key={product.name}
-                title={product.name}
+                name={product.name}
+                label={product.label}
+                docURL={product.doc}
                 handleSubscription={handleSubscription}
                 handleUnSubscription={handleUnSubscription}
               />

@@ -23,7 +23,7 @@ export const Loader = ({ message }) => {
     <LoadingContainer className="h-screen">
       <div>
         <Spinner className="mx-auto" />
-        <p className="mt-2">{message || "Loading please wait"} </p>
+        <p className="mt-2">{message || "processing please wait"} </p>
       </div>
     </LoadingContainer>
   );
@@ -34,7 +34,7 @@ export const InlineLoader = ({ message, className }) => {
     <LoadingContainer className={clsx("h-80", className)}>
       <div>
         <Spinner className="mx-auto" />
-        <p className="mt-2">{message || "Loading please wait"} </p>
+        <p className="mt-2">{message || "processing please wait"} </p>
       </div>
     </LoadingContainer>
   );
