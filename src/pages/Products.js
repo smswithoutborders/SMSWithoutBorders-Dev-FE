@@ -85,7 +85,8 @@ const Products = () => {
                 key={product.name}
                 name={product.name}
                 label={product.label}
-                docURL={product.doc}
+                description={product.description}
+                documentation={product.documentation}
                 handleSubscription={handleSubscription}
                 handleUnSubscription={handleUnSubscription}
               />
@@ -96,7 +97,8 @@ const Products = () => {
                 key={product.name}
                 name={product.name}
                 label={product.label}
-                docURL={product.doc}
+                description={product.description}
+                documentation={product.documentation}
                 handleSubscription={handleSubscription}
                 handleUnSubscription={handleUnSubscription}
               />

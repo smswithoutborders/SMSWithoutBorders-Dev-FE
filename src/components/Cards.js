@@ -9,8 +9,9 @@ import { FiExternalLink } from "react-icons/fi";
 export const ProductCard = ({
   name,
   label,
-  docURL,
   subscribed,
+  description,
+  documentation,
   handleSubscription,
   handleUnSubscription,
 }) => {
@@ -35,16 +36,12 @@ export const ProductCard = ({
             />
           </div>
           <div className="mb-8">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Asperiores odit cumque esse provident saepe voluptatem
-              consequatur, voluptate eum exercitationem eaque.
-            </p>
+            <p>{description}</p>
 
             <div className="flex items-center justify-between">
               <a
-                className="flex items-center no-underline text-blue-800 outline-none appearance-none"
-                href={docURL}
+                className="flex items-center text-blue-800 no-underline outline-none appearance-none"
+                href={documentation}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -73,8 +70,7 @@ export const ProductCard = ({
       ) : (
         <div className="">
           <h3 className="my-2">{label}</h3>
-          <p>Lorem ipsum dolor sit.</p>
-
+          <p className="truncate">{description}</p>
           <div className="grid grid-cols-2 gap-0">
             <button
               className="flex items-center text-sm text-blue-800 cols-span-1"
@@ -108,8 +104,8 @@ export const ProductCard = ({
 
 ProductCard.propTypes = {
   name: PropTypes.string.isRequired,
-  lable: PropTypes.string.isRequired,
-  docURL: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  documentation: PropTypes.string.isRequired,
   subscribed: PropTypes.bool,
   handleSubscription: PropTypes.func.isRequired,
   handleUnSubscription: PropTypes.func.isRequired,
