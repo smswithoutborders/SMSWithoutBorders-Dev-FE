@@ -10,7 +10,15 @@ export const RequestErrorHandler = (store) => (next) => (action) => {
     if (originalStatus) {
       switch (originalStatus) {
         case 400:
-          toast.error("An error occured. Please contact support");
+          switch (endpointName) {
+            case "subscription":
+              toast.error(
+                "An error occured. please create your access keys from credentials before subscribing"
+              );
+              break;
+            default:
+              toast.error("An error occured. Please contact support");
+          }
           break;
         case 401:
           toast.error(
@@ -41,7 +49,6 @@ export const RequestErrorHandler = (store) => (next) => (action) => {
                 "There is a possible duplicate of this account please contact support"
               );
           }
-
           break;
         case 429:
           toast.error(
