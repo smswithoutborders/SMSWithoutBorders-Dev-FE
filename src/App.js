@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { RequireAuth } from "components";
+import { Layout, RequireAuth } from "components";
 import { Toaster } from "react-hot-toast";
 import {
   Docs,
   LogIn,
   SignUp,
+  Landing,
   NotFound,
   Products,
   Dashboard,
@@ -25,16 +26,13 @@ const App = () => {
       />
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <RequireAuth>
-                <Navigate to="/dashboard" />
-              </RequireAuth>
-            }
-          />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Landing />} />
+
+            <Route path="login" element={<LogIn />} />
+            <Route path="signup" element={<SignUp />} />
+          </Route>
+
           <Route
             path="dashboard"
             element={

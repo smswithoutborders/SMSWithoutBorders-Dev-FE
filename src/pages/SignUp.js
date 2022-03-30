@@ -109,7 +109,7 @@ const SignUp = () => {
 
   return (
     <Container className="grid min-h-screen bg-gray-100 place-items-stretch md:place-items-center">
-      <div className="container p-8 bg-white md:my-20 md:max-w-lg md:shadow-lg md:rounded-xl">
+      <div className="container p-8 bg-white md:my-20 md:max-w-md md:shadow-lg md:rounded-xl">
         <div className="mb-8">
           <img src={logo} alt="logo" className="h-32 mx-auto my-6" />
           <h1 className="text-2xl font-bold text-center">SMSWithoutBorders</h1>
