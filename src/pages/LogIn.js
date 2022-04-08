@@ -16,6 +16,7 @@ import {
   FormGroup,
   ErrorMessage,
   PasswordInput,
+  PageAnimationWrapper,
 } from "components";
 
 const schema = yup.object({
@@ -74,55 +75,59 @@ const LogIn = () => {
   }
 
   return (
-    <div className="grid min-h-screen place-items-stretch md:place-items-center">
-      <div className="container p-8 bg-white md:my-20 md:max-w-md md:shadow-lg md:rounded-xl">
-        <div className="mb-8">
-          <img src={logo} alt="logo" className="h-32 mx-auto my-6" />
-          <h1 className="text-2xl font-bold text-center">SMSWithoutBorders</h1>
-          <p className="my-1 text-2xl font-light tracking-wide text-center">
-            Developer
+    <PageAnimationWrapper>
+      <div className="grid min-h-screen place-items-stretch md:place-items-center">
+        <div className="container p-8 bg-white md:my-20 md:max-w-md md:shadow-lg md:rounded-xl">
+          <div className="mb-8">
+            <img src={logo} alt="logo" className="h-32 mx-auto my-6" />
+            <h1 className="text-2xl font-bold text-center">
+              SMSWithoutBorders
+            </h1>
+            <p className="my-1 text-2xl font-light tracking-wide text-center">
+              Developer
+            </p>
+          </div>
+          <form onSubmit={handleSubmit(handleLogin)}>
+            <FormGroup>
+              <Label htmlFor="email" required>
+                Email address
+              </Label>
+              <Input
+                type="email"
+                name="email"
+                {...register("email")}
+                error={errors.email}
+              />
+              {errors.email && (
+                <ErrorMessage>{errors.email?.message}</ErrorMessage>
+              )}
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="password" required>
+                Password
+              </Label>
+              <PasswordInput
+                name="password"
+                showStrength={false}
+                {...register("password")}
+                error={errors.password}
+              />
+              {errors.password && (
+                <ErrorMessage>{errors.password?.message}</ErrorMessage>
+              )}
+            </FormGroup>
+            <Button className="w-full">login</Button>
+          </form>
+
+          <p className="mt-4 text-sm text-center text-gray-600">
+            Dont have an account? &nbsp;
+            <Link to="/signup" className="text-blue-800">
+              Sign Up
+            </Link>
           </p>
         </div>
-        <form onSubmit={handleSubmit(handleLogin)}>
-          <FormGroup>
-            <Label htmlFor="email" required>
-              Email address
-            </Label>
-            <Input
-              type="email"
-              name="email"
-              {...register("email")}
-              error={errors.email}
-            />
-            {errors.email && (
-              <ErrorMessage>{errors.email?.message}</ErrorMessage>
-            )}
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="password" required>
-              Password
-            </Label>
-            <PasswordInput
-              name="password"
-              showStrength={false}
-              {...register("password")}
-              error={errors.password}
-            />
-            {errors.password && (
-              <ErrorMessage>{errors.password?.message}</ErrorMessage>
-            )}
-          </FormGroup>
-          <Button className="w-full">login</Button>
-        </form>
-
-        <p className="mt-4 text-sm text-center text-gray-600">
-          Dont have an account? &nbsp;
-          <Link to="/signup" className="text-blue-800">
-            Sign Up
-          </Link>
-        </p>
       </div>
-    </div>
+    </PageAnimationWrapper>
   );
 };
 

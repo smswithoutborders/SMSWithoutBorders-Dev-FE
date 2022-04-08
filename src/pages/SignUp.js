@@ -16,6 +16,7 @@ import {
   FormGroup,
   ErrorMessage,
   PasswordInput,
+  PageAnimationWrapper,
 } from "components";
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector } from "features";
@@ -77,124 +78,130 @@ const SignUp = () => {
 
   if (isSuccess) {
     return (
-      <div className="grid h-screen place-items-center">
-        <div className="container flex flex-wrap items-center mx-auto">
-          <div className="flex flex-col w-full p-8 m-4 mt-10 bg-white shadow-lg lg:w-2/6 md:w-1/2 rounded-xl md:mx-auto md:mt-0">
-            <div className="mb-8">
-              <img src={logo} alt="logo" className="h-24 mx-auto my-8" />
-              <h1 className="text-2xl font-bold text-center">
-                SMSWithoutBorders
-              </h1>
-              <p className="my-1 text-2xl font-light tracking-wide text-center">
-                Developer
+      <PageAnimationWrapper>
+        <div className="grid h-screen place-items-center">
+          <div className="container flex flex-wrap items-center mx-auto">
+            <div className="flex flex-col w-full p-8 m-4 mt-10 bg-white shadow-lg lg:w-2/6 md:w-1/2 rounded-xl md:mx-auto md:mt-0">
+              <div className="mb-8">
+                <img src={logo} alt="logo" className="h-24 mx-auto my-8" />
+                <h1 className="text-2xl font-bold text-center">
+                  SMSWithoutBorders
+                </h1>
+                <p className="my-1 text-2xl font-light tracking-wide text-center">
+                  Developer
+                </p>
+              </div>
+
+              <p className="mb-4 text-center text-gray-800">
+                Your account has been created. Please login
               </p>
+
+              <Button
+                className="w-1/3 mx-auto"
+                onClick={() => navigate("/login")}
+              >
+                login
+              </Button>
             </div>
-
-            <p className="mb-4 text-center text-gray-800">
-              Your account has been created. Please login
-            </p>
-
-            <Button
-              className="w-1/3 mx-auto"
-              onClick={() => navigate("/login")}
-            >
-              login
-            </Button>
           </div>
         </div>
-      </div>
+      </PageAnimationWrapper>
     );
   }
 
   return (
-    <div className="grid min-h-screen place-items-stretch md:place-items-center">
-      <div className="container p-8 bg-white md:my-20 md:max-w-md md:shadow-lg md:rounded-xl">
-        <div className="mb-8">
-          <img src={logo} alt="logo" className="h-32 mx-auto my-6" />
-          <h1 className="text-2xl font-bold text-center">SMSWithoutBorders</h1>
-          <p className="my-1 text-2xl font-light tracking-wide text-center">
-            Developer
+    <PageAnimationWrapper>
+      <div className="grid min-h-screen place-items-stretch md:place-items-center">
+        <div className="container p-8 bg-white md:my-20 md:max-w-md md:shadow-lg md:rounded-xl">
+          <div className="mb-8">
+            <img src={logo} alt="logo" className="h-32 mx-auto my-6" />
+            <h1 className="text-2xl font-bold text-center">
+              SMSWithoutBorders
+            </h1>
+            <p className="my-1 text-2xl font-light tracking-wide text-center">
+              Developer
+            </p>
+          </div>
+          <form onSubmit={handleSubmit(handleSignUp)}>
+            <FormGroup>
+              <Label htmlFor="email" required>
+                Email address
+              </Label>
+              <Input
+                type="email"
+                name="email"
+                {...register("email")}
+                error={errors.email}
+              />
+              {errors.email && (
+                <ErrorMessage>{errors.email?.message}</ErrorMessage>
+              )}
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="password" required>
+                Password
+              </Label>
+              <PasswordInput
+                name="password"
+                {...register("password")}
+                error={errors.password}
+              />
+              {errors.password && (
+                <ErrorMessage>{errors.password?.message}</ErrorMessage>
+              )}
+            </FormGroup>
+
+            <FormGroup>
+              <Label htmlFor="password" required>
+                Confirm Password
+              </Label>
+              <PasswordInput
+                name="confirmPassword"
+                {...register("confirmPassword")}
+                error={errors.confirmPassword}
+              />
+              {errors.confirmPassword && (
+                <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
+              )}
+            </FormGroup>
+
+            <FormGroup>
+              <Controller
+                control={control}
+                name="acceptTerms"
+                render={({ field: { value, onChange } }) => (
+                  <div className="inline-flex">
+                    <CheckBox
+                      value={value}
+                      defaultChecked={watch("acceptTerms")}
+                      onChange={onChange}
+                      className="mt-0.5"
+                    />
+                    <div className="ml-2 text-sm">
+                      <p className="font-medium">Terms and Conditions</p>
+                      <p className="text-sm text-gray-600">
+                        By signing up I agree to the <a href="#terms">terms</a>{" "}
+                        of use
+                      </p>
+                    </div>
+                  </div>
+                )}
+              />
+            </FormGroup>
+            <Button className="w-full" disabled={!watch("acceptTerms")}>
+              sign up
+            </Button>
+          </form>
+
+          <p className="mt-4 text-sm text-center text-gray-600">
+            Already have an account? &nbsp;
+            <Link to="/login" className="text-blue-800">
+              login
+            </Link>
           </p>
         </div>
-        <form onSubmit={handleSubmit(handleSignUp)}>
-          <FormGroup>
-            <Label htmlFor="email" required>
-              Email address
-            </Label>
-            <Input
-              type="email"
-              name="email"
-              {...register("email")}
-              error={errors.email}
-            />
-            {errors.email && (
-              <ErrorMessage>{errors.email?.message}</ErrorMessage>
-            )}
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="password" required>
-              Password
-            </Label>
-            <PasswordInput
-              name="password"
-              {...register("password")}
-              error={errors.password}
-            />
-            {errors.password && (
-              <ErrorMessage>{errors.password?.message}</ErrorMessage>
-            )}
-          </FormGroup>
-
-          <FormGroup>
-            <Label htmlFor="password" required>
-              Confirm Password
-            </Label>
-            <PasswordInput
-              name="confirmPassword"
-              {...register("confirmPassword")}
-              error={errors.confirmPassword}
-            />
-            {errors.confirmPassword && (
-              <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
-            )}
-          </FormGroup>
-
-          <FormGroup>
-            <Controller
-              control={control}
-              name="acceptTerms"
-              render={({ field: { value, onChange } }) => (
-                <div className="inline-flex">
-                  <CheckBox
-                    value={value}
-                    defaultChecked={watch("acceptTerms")}
-                    onChange={onChange}
-                    className="mt-0.5"
-                  />
-                  <div className="ml-2 text-sm">
-                    <p className="font-medium">Terms and Conditions</p>
-                    <p className="text-sm text-gray-600">
-                      By signing up I agree to the <a href="#terms">terms</a> of
-                      use
-                    </p>
-                  </div>
-                </div>
-              )}
-            />
-          </FormGroup>
-          <Button className="w-full" disabled={!watch("acceptTerms")}>
-            sign up
-          </Button>
-        </form>
-
-        <p className="mt-4 text-sm text-center text-gray-600">
-          Already have an account? &nbsp;
-          <Link to="/login" className="text-blue-800">
-            login
-          </Link>
-        </p>
       </div>
-    </div>
+    </PageAnimationWrapper>
   );
 };
 
