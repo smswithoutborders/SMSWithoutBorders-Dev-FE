@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Layout, RequireAuth } from "components";
+import { Layout, RequireAuth, ScrollToTop } from "components";
 import { Toaster } from "react-hot-toast";
 import {
   LogIn,
@@ -24,28 +24,30 @@ const App = () => {
         }}
       />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Landing />} />
+        <ScrollToTop>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Landing />} />
 
-            <Route path="login" element={<LogIn />} />
-            <Route path="signup" element={<SignUp />} />
-          </Route>
+              <Route path="login" element={<LogIn />} />
+              <Route path="signup" element={<SignUp />} />
+            </Route>
 
-          <Route
-            path="dashboard"
-            element={
-              <RequireAuth>
-                <Dashboard />
-              </RequireAuth>
-            }
-          >
-            <Route index element={<Navigate to="products" />} />
-            <Route path="products" element={<Products />} />
-            <Route path="credentials" element={<Credentials />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            <Route
+              path="dashboard"
+              element={
+                <RequireAuth>
+                  <Dashboard />
+                </RequireAuth>
+              }
+            >
+              <Route index element={<Navigate to="products" />} />
+              <Route path="products" element={<Products />} />
+              <Route path="credentials" element={<Credentials />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </ScrollToTop>
       </BrowserRouter>
     </Fragment>
   );

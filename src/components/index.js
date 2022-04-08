@@ -8,6 +8,7 @@ export * from "./RequireAuth";
 export * from "./PasswordInput";
 export * from "./useTitle";
 export * from "./NavLinks";
+export * from "./ScrollToTop";
 export { default as Footer } from "./Footer";
 export { default as Navbar } from "./Navbar";
 export { default as MainNavbar } from "./MainNavbar";
