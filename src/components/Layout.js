@@ -1,13 +1,14 @@
-import React, { Fragment } from "react";
-import { MainNavbar } from "components";
+import React from "react";
+import { MainNavbar, Footer } from "components";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <Fragment>
+    <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-black">
       <MainNavbar />
       <Outlet />
-    </Fragment>
+      <Footer />
+    </div>
   );
 };
 
