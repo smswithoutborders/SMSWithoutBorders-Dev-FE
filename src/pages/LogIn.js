@@ -70,7 +70,7 @@ const LogIn = () => {
     Also maintain after request is successfull to update background state
   */
   if (isLoading || isSuccess) {
-    return <Loader message="processing please wait ..." />;
+    return <Loader light message="processing please wait ..." />;
   }
 
   return (

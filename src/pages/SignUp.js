@@ -73,7 +73,7 @@ const SignUp = () => {
   };
 
   // when making requests show loading indicator
-  if (isLoading) return <Loader message="processing please wait ..." />;
+  if (isLoading) return <Loader light message="processing please wait ..." />;
 
   if (isSuccess) {
     return (

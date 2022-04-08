@@ -74,7 +74,7 @@ const MainNavbar = () => {
             onClick={() => toggleMenu()}
             key="signup"
             to="/signup"
-            className="text-white bg-blue-800 border-none lg:px-6 lg:py-2 lg:m-4 lg:rounded-3xl"
+            className="p-4 text-white bg-blue-800 border-none lg:px-6 lg:py-2 lg:m-4 lg:rounded-3xl"
           >
             signup
           </Link>
