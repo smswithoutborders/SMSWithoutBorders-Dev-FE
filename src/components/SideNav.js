@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { FiGrid, FiShield } from "react-icons/fi";
-import { NavLink } from "./NavLink";
+import { SideNavLink } from "./NavLinks";
 
 const SideNav = ({ open, className }) => {
   return (
@@ -13,14 +13,14 @@ const SideNav = ({ open, className }) => {
         className
       )}
     >
-      <NavLink to="products">
+      <SideNavLink to="products">
         <FiGrid size={20} className="mr-2" />
         <span className="">Products</span>
-      </NavLink>
-      <NavLink to="credentials">
+      </SideNavLink>
+      <SideNavLink to="credentials">
         <FiShield size={20} className="mr-2" />
         <span className="">Credentials</span>
-      </NavLink>
+      </SideNavLink>
     </nav>
   );
 };

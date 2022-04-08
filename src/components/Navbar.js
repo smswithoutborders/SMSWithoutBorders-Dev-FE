@@ -14,7 +14,7 @@ import { authSelector, logout } from "features";
 import { clearCache } from "services/storage";
 import { Link } from "react-router-dom";
 import { Button } from "./shared";
-import { NavLink } from "./NavLink";
+import { NavLink } from "./NavLinks";
 import toast from "react-hot-toast";
 
 const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
