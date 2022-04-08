@@ -13,7 +13,6 @@ import {
   Label,
   Loader,
   Button,
-  Container,
   FormGroup,
   ErrorMessage,
   PasswordInput,
@@ -75,7 +74,7 @@ const LogIn = () => {
   }
 
   return (
-    <Container className="grid min-h-screen bg-gray-100 place-items-stretch md:place-items-center">
+    <div className="grid min-h-screen place-items-stretch md:place-items-center">
       <div className="container p-8 bg-white md:my-20 md:max-w-md md:shadow-lg md:rounded-xl">
         <div className="mb-8">
           <img src={logo} alt="logo" className="h-32 mx-auto my-6" />
@@ -123,7 +122,7 @@ const LogIn = () => {
           </Link>
         </p>
       </div>
-    </Container>
+    </div>
   );
 };
 

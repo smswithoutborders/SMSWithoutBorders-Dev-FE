@@ -6,20 +6,19 @@ import {
   FiMenu,
   FiX,
   FiShield,
-  FiFile,
   FiGrid,
+  FiFile,
 } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 import { authSelector, logout } from "features";
 import { clearCache } from "services/storage";
-import { Link } from "react-router-dom";
 import { Button } from "./shared";
-import { NavLink } from "./NavLinks";
+import { NavLink, ExternalLink } from "./NavLinks";
 import toast from "react-hot-toast";
 
 const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
   return (
-    <nav className="hidden p-4 text-white bg-gray-800 md:block">
+    <nav className="hidden p-4 text-white bg-gradient-to-r from-black to-slate-900 md:block">
       <div className="flex flex-row flex-wrap items-center justify-between">
         <div className="flex items-center">
           <FiMenu
@@ -32,9 +31,16 @@ const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
           <span className="ml-1 tracking-wide text-light">Developer</span>
         </div>
         <div className="items-center hidden md:flex">
-          <Link to="docs" className="mr-4 text-sm text-gray-300">
+          <ExternalLink
+            onClick={() => onToggle()}
+            key="documentation"
+            href="https://smswithoutborders.github.io/docs/developers/introduction"
+            target="_blank"
+            rel="noreferrer"
+            className="px-4 py-0 font-normal"
+          >
             Docs
-          </Link>
+          </ExternalLink>
           <div className="flex items-center justify-center mr-2 bg-gray-100 rounded-full w-7 h-7">
             <p className="font-bold text-center text-gray-800">
               {user?.email.charAt(0)}
@@ -91,10 +97,17 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
               <FiShield size={20} className="mr-2" />
               <span className="">Credentials</span>
             </NavLink>
-            <NavLink to="docs" onClick={() => onToggle()}>
+            <ExternalLink
+              onClick={() => onToggle()}
+              key="documentation"
+              href="https://smswithoutborders.github.io/docs/developers/introduction"
+              target="_blank"
+              rel="noreferrer"
+              className="font-normal"
+            >
               <FiFile size={20} className="mr-2" />
               <span className="">Docs</span>
-            </NavLink>
+            </ExternalLink>
           </div>
 
           <div className="flex items-center justify-between px-4 py-5 bg-gray-100">

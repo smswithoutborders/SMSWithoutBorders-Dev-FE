@@ -10,7 +10,7 @@ export const NavLink = forwardRef(({ className, ...props }, ref) => {
       className={({ isActive }) =>
         clsx(
           "flex items-center p-4 outline-none appearance-none",
-          isActive && "font-medium border-b-2 border-blue-800 text-blue-800",
+          isActive && "font-medium border-b-2 border-blue-600 text-blue-600",
           className
         )
       }

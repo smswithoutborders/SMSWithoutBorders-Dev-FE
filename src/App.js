@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Layout, RequireAuth } from "components";
 import { Toaster } from "react-hot-toast";
 import {
-  Docs,
   LogIn,
   SignUp,
   Landing,
@@ -44,7 +43,6 @@ const App = () => {
             <Route index element={<Navigate to="products" />} />
             <Route path="products" element={<Products />} />
             <Route path="credentials" element={<Credentials />} />
-            <Route path="docs" element={<Docs />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

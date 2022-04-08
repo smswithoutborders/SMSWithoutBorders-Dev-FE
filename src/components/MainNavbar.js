@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { authSelector } from "features";
 import { BsPersonCircle } from "react-icons/bs";
 
-
 const MainNavbar = () => {
   const [open, setOpen] = useState(false);
   const user = useSelector(authSelector);
@@ -71,14 +70,14 @@ const MainNavbar = () => {
             login
           </NavLink>
 
-          <NavLink
+          <Link
             onClick={() => toggleMenu()}
             key="signup"
             to="/signup"
-            className="text-white bg-blue-800 lg:px-6 lg:py-2 lg:m-4 lg:rounded-3xl"
+            className="text-white bg-blue-800 border-none lg:px-6 lg:py-2 lg:m-4 lg:rounded-3xl"
           >
             signup
-          </NavLink>
+          </Link>
         </div>
       )}
     </div>
@@ -99,7 +98,7 @@ const MainNavbar = () => {
   );
 
   return (
-    <div className="sticky top-0 z-50 bg-white shadow-md">
+    <div className="sticky top-0 z-50 bg-white md:bg-transparent md:text-white shadow-3xl">
       <nav className="justify-between hidden lg:flex">
         <Logo />
         <SharedLinks />

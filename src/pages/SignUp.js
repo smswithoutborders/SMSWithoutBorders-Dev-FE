@@ -13,7 +13,6 @@ import {
   Loader,
   Button,
   CheckBox,
-  Container,
   FormGroup,
   ErrorMessage,
   PasswordInput,
@@ -78,7 +77,7 @@ const SignUp = () => {
 
   if (isSuccess) {
     return (
-      <Container className="grid h-screen place-items-center">
+      <div className="grid h-screen place-items-center">
         <div className="container flex flex-wrap items-center mx-auto">
           <div className="flex flex-col w-full p-8 m-4 mt-10 bg-white shadow-lg lg:w-2/6 md:w-1/2 rounded-xl md:mx-auto md:mt-0">
             <div className="mb-8">
@@ -103,12 +102,12 @@ const SignUp = () => {
             </Button>
           </div>
         </div>
-      </Container>
+      </div>
     );
   }
 
   return (
-    <Container className="grid min-h-screen bg-gray-100 place-items-stretch md:place-items-center">
+    <div className="grid min-h-screen place-items-stretch md:place-items-center">
       <div className="container p-8 bg-white md:my-20 md:max-w-md md:shadow-lg md:rounded-xl">
         <div className="mb-8">
           <img src={logo} alt="logo" className="h-32 mx-auto my-6" />
@@ -195,7 +194,7 @@ const SignUp = () => {
           </Link>
         </p>
       </div>
-    </Container>
+    </div>
   );
 };
 

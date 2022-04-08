@@ -6,7 +6,7 @@ import { GoMarkGithub } from "react-icons/go";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col px-6 text-white bg-gradient-to-br from-slate-900 to-black md:bg-ransparent md:justify-between lg:flex-row lg:mx-8">
+    <footer className="flex flex-col px-6 text-white bg-gradient-to-br from-slate-900 to-black md:bg-ransparent md:justify-between lg:flex-row rouned-t-3xl">
       <a href="https://smswithoutborders.com" className="flex items-center p-4">
         <img src={logo} alt="logo" className="w-8 h-8 mr-3" />
         <p className="text-[0.95rem] md:text-base">

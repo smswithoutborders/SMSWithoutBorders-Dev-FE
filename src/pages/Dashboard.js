@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Navbar, SideNav } from "components";
+import { Footer, Navbar, SideNav } from "components";
 import { Outlet } from "react-router-dom";
 import clsx from "clsx";
 
@@ -18,6 +18,7 @@ const Dashboard = () => {
           <Outlet />
         </div>
       </div>
+      <Footer />
     </Fragment>
   );
 };
