@@ -1,11 +1,11 @@
-# **SMSWithoutBorders Developer**
+# **SMSWithoutBorders Developer Console**
 
 Please follow the steps below to get setup
 
 ## Install dependencies
 
 ```Bash
-npm install
+yarn install
 ```
 
 ## Configure environment variables
@@ -33,7 +33,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Start development server
 
 ```bash
-npm start
+yarn start
 ```
 
 Open [http://localhost:18900](http://localhost:18900) to view dashboard in the browser.
@@ -45,7 +45,7 @@ You will also see any lint errors in the console.
 ## Create a production build
 
 ```bash
-npm run build
+yarn build
 ```
 
 Builds the app for production. Check the `build` folder for deployable files once complete.
