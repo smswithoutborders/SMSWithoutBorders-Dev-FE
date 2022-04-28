@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import logo from "images/logo.png";
 import { FiGrid, FiMenu, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -7,14 +7,31 @@ import { ExternalLink, NavLink } from "./NavLinks";
 import { useSelector } from "react-redux";
 import { authSelector } from "features";
 import { BsPersonCircle } from "react-icons/bs";
+import clsx from "clsx";
 
 const MainNavbar = () => {
   const [open, setOpen] = useState(false);
+  const [toggle, setToggle] = useState(false);
   const user = useSelector(authSelector);
 
   function toggleMenu() {
     setOpen(!open);
   }
+  const handleScroll = useCallback(() => {
+    if (window.scrollY >= 80) {
+      setToggle(true);
+    } else {
+      setToggle(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
 
   const SharedLinks = () => (
     <div className="lg:flex">
@@ -41,6 +58,7 @@ const MainNavbar = () => {
       </ExternalLink>
     </div>
   );
+
   const ActionLinks = () => (
     <div className="lg:flex">
       {user.uid ? (
@@ -99,7 +117,14 @@ const MainNavbar = () => {
 
   return (
     <div className="sticky top-0 z-50 bg-white md:bg-transparent md:text-white shadow-3xl">
-      <nav className="justify-between hidden lg:flex">
+      <nav
+        className={clsx(
+          "justify-between hidden lg:flex",
+          toggle
+            ? "bg-gradient-to-tl md:bg-gradient-to-r from-black via-slate-900 to-slate-900"
+            : "bg-transparent"
+        )}
+      >
         <Logo />
         <SharedLinks />
         <ActionLinks />
