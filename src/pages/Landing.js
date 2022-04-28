@@ -6,30 +6,46 @@ import { PageAnimationWrapper } from "components";
 export const Landing = () => {
   return (
     <PageAnimationWrapper>
-      <div className="grid max-w-screen-xl min-h-screen grid-cols-2 mx-auto prose text-white place-items-stretch md:place-items-center">
-        <div className="p-8 pt-16 md:pl-16 col-span-full lg:col-span-1">
-          <h1 className="my-4 text-2xl font-medium text-white">
-            <span className="text-blue-800">SW/OB</span>
-            <span className="font-light text-white"> for</span> Developers
-          </h1>
-          <h1 className="my-0 text-white lg:text-6xl">Stay Connected</h1>
+      <div className="max-w-screen-xl mx-auto prose prose-invert">
+        <div className="grid min-h-screen place-items-center">
+          <div className="p-8 text-center">
+            <h1 className="leading-relaxed tracking-wide text-white lg:text-6xl">
+              <span className="">SW/OB</span> for
+              <span className="text-blue-800"> Developers</span>
+            </h1>
 
-          <p className="my-12 font-light lg:text-xl">
-            Modern tools and resources to help you build experiences that people
-            love, faster and easier.
-          </p>
+            <p className="my-12 font-light lg:text-xl">
+              Modern tools and resources to help you build experiences that
+              people love, faster and easier.
+            </p>
 
-          <Link
-            className="inline-flex items-center justify-center flex-1 px-12 py-3 text-lg text-white no-underline bg-blue-800 appearance-none group rounded-3xl"
-            to="signup"
-          >
-            <span className="mr-2 group-hover:mr-4">Sign Up</span>
-            <BsArrowRight size={20} />
-          </Link>
+            <div className="flex flex-col justify-center max-w-md px-12 mx-auto mt-16 space-y-4 md:space-y-0 md:space-x-4 md:flex-row lg:justify-start md:px-0">
+              <Link
+                className="flex items-center justify-center flex-1 py-3 text-lg text-white no-underline bg-blue-800 appearance-none rounded-3xl"
+                to="signup"
+              >
+                Sign Up
+              </Link>
+
+              <a
+                href="#tutorials"
+                className="inline-flex items-center justify-center flex-1 py-3 text-lg text-white no-underline border appearance-none rounded-3xl"
+              >
+                Tutorials
+              </a>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 px-4 py-10 md:py-20 col-span-full lg:col-span-1 lg:mb-28">
-          <div className="col-span-2 p-8 text-white shadow-xl bg-gradient-to-br from-blue-800 to-black lg:py-16 rounded-2xl">
+        <div className="p-8 mb-10 scroll-mt-8" id="tutorials">
+          <h2 className="text-3xl font-black leading-relaxed tracking-wide text-center lg:text-5xl">
+            Tutorials
+          </h2>
+          <p className="my-12 font-light text-center lg:text-xl">
+            Quick guides and resources to help you start building
+          </p>
+
+          <div className="p-8 mb-8 text-white shadow-xl bg-gradient-to-br from-blue-800 to-black lg:py-16 rounded-2xl">
             <span className="font-light">Tutorial</span>
             <h2 className="my-4 text-white">How to create an account</h2>
             <a
@@ -42,9 +58,20 @@ export const Landing = () => {
               <BsArrowRight size={20} />
             </a>
           </div>
-          <div className="col-span-1 border border-gray-800 shadow-xl rounded-2xl"></div>
-          <div className="col-span-1 border border-gray-800 shadow-xl rounded-2xl"></div>
-          <div className="col-span-2 p-8 text-white shadow-xl bg-gradient-to-br from-blue-800 to-black rounded-2xl"></div>
+
+          <div className="p-8 border border-gray-800 shadow-xl rounded-2xl backdrop-blur-xl lg:py-16">
+            <span className="font-light">Tutorial</span>
+            <h2 className="my-4 text-white">Getting Started with OpenAPI</h2>
+            <a
+              className="flex items-center justify-between font-light text-white no-underline"
+              href="https://smswithoutborders-openapi.readthedocs.io/en/latest/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="mr-2">learn more </span>
+              <BsArrowRight size={20} />
+            </a>
+          </div>
         </div>
       </div>
     </PageAnimationWrapper>
