@@ -1,123 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import logo from "images/logo.png";
 import toast from "react-hot-toast";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { setCache, getCache, clearCache } from "services/storage";
 import * as yup from "yup";
 import { useLoginMutation } from "services/api";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { saveAuth, saveCredentials, authSelector } from "features";
 import {
-  ErrorMessage,
-  FormGroup,
   Input,
   Label,
   Loader,
-  CheckBox,
   Button,
-  ToggleButton,
-  Container,
+  FormGroup,
+  ErrorMessage,
+  PasswordInput,
+  PageAnimationWrapper,
 } from "components";
 
 const schema = yup.object({
-  email: yup.string().email().required(),
-  password: yup.string().min(8).required(),
+  email: yup.string().email().required("please enter your email"),
+  password: yup.string().min(8).required("please enter your password"),
   rememberMe: yup.bool(),
 });
 
 const LogIn = () => {
-  const [toggle, setToggle] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    control,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-
   const [login, { isLoading, isSuccess }] = useLoginMutation();
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const auth = useSelector(authSelector);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   useEffect(() => {
     // if logged in then redirect to dashboard
-    if (auth.sessionID) {
+    if (auth.uid && location.state && location.state.path) {
+      /*
+          redirect users if they initially tried to access a private route
+          without permission
+        */
+      navigate(location.state.path);
+    } else if (auth.uid) {
       navigate("/dashboard");
     }
-    // get the stored cache to repopulate
-    const cache = getCache();
-    if (cache && cache.session_id) {
-      dispatch(saveAuth(cache));
-      dispatch(saveCredentials(cache));
-      navigate("/dashboard");
-    } else if (cache && cache.email) {
-      setValue("email", cache.email, {
-        shouldValidate: true,
-      });
-      setValue("password", cache.password, {
-        shouldValidate: true,
-      });
-      clearCache();
-    }
-  }, [setValue, dispatch, navigate, auth.sessionID]);
+  }, [dispatch, navigate, auth.uid, location.state]);
 
   const handleLogin = async (data) => {
-    setCache(data);
     try {
-      const user = await login(data).unwrap();
-      dispatch(saveAuth(user));
-      dispatch(saveCredentials(user));
-      // remove any cached email and password
-      clearCache();
-      // if user wants to be remembered then cache their session
-      if (data.rememberMe) {
-        setCache(user);
-      }
-      /* 
-        redirect users if they initially tried to access a private route
-        without permission
-      */
-      if (location.state && location.state.path) {
-        navigate(location.state.path);
-      } else {
-        navigate("/dashboard");
-      }
+      const response = await login(data).unwrap();
+      toast.success("Login successful");
+      // create a cookie for this session
+      dispatch(saveAuth(response));
+      dispatch(saveCredentials(response));
+      // check useEffect above for redirect which should happen at this stage
     } catch (error) {
-      switch (error.status) {
-        case 400:
-          toast.error("An error occured. Please contact support");
-          break;
-        case 401:
-          toast.error(
-            "Sorry you are not authorized to use this service. Please contact support"
-          );
-          break;
-        case 409:
-          toast.error(
-            "There is a possible duplicate of this account please contact support"
-          );
-          break;
-
-        case 429:
-          toast.error(
-            "Too many failed attempts please wait a while and try again"
-          );
-          break;
-        case 500:
-          toast.error("A critical error occured. Please contact support");
-          break;
-        case "FETCH_ERROR":
-          toast.error("An error occured, please check your network try again");
-          break;
-        default:
-          toast.error("An error occured, please try again");
-      }
+      // we handle errors with middleware
     }
   };
 
@@ -126,15 +71,15 @@ const LogIn = () => {
     Also maintain after request is successfull to update background state
   */
   if (isLoading || isSuccess) {
-    return <Loader message="processing please wait ..." />;
+    return <Loader light message="processing please wait ..." />;
   }
 
   return (
-    <Container className="grid h-screen place-items-center">
-      <div className="container flex flex-wrap items-center mx-auto">
-        <div className="flex flex-col w-full p-8 m-4 mt-10 bg-white shadow-lg lg:w-2/6 md:w-1/2 rounded-xl md:mx-auto md:mt-0">
-          <div className="mb-4">
-            <img src={logo} alt="logo" className="h-24 mx-auto my-8" />
+    <PageAnimationWrapper>
+      <div className="grid min-h-screen place-items-stretch md:place-items-center">
+        <div className="container p-8 bg-white md:my-20 md:max-w-md md:shadow-lg md:rounded-xl">
+          <div className="mb-8">
+            <img src={logo} alt="logo" className="h-32 mx-auto my-6" />
             <h1 className="text-2xl font-bold text-center">
               SMSWithoutBorders
             </h1>
@@ -144,7 +89,9 @@ const LogIn = () => {
           </div>
           <form onSubmit={handleSubmit(handleLogin)}>
             <FormGroup>
-              <Label htmlFor="email">Email address</Label>
+              <Label htmlFor="email" required>
+                Email address
+              </Label>
               <Input
                 type="email"
                 name="email"
@@ -156,36 +103,18 @@ const LogIn = () => {
               )}
             </FormGroup>
             <FormGroup>
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Input
-                  type={toggle ? "text" : "password"}
-                  name="password"
-                  {...register("password")}
-                  error={errors.password}
-                />
-                <ToggleButton
-                  className="absolute top-3 right-3"
-                  toggleFunc={setToggle}
-                  value={toggle}
-                />
-              </div>
+              <Label htmlFor="password" required>
+                Password
+              </Label>
+              <PasswordInput
+                name="password"
+                showStrength={false}
+                {...register("password")}
+                error={errors.password}
+              />
               {errors.password && (
                 <ErrorMessage>{errors.password?.message}</ErrorMessage>
               )}
-            </FormGroup>
-
-            <FormGroup>
-              <Controller
-                control={control}
-                name="rememberMe"
-                render={({ field: { value, onChange } }) => (
-                  <Label className="inline-flex items-center">
-                    <CheckBox value={value} onChange={onChange} />
-                    <span className="ml-2">remember me</span>
-                  </Label>
-                )}
-              />
             </FormGroup>
             <Button className="w-full">login</Button>
           </form>
@@ -198,7 +127,7 @@ const LogIn = () => {
           </p>
         </div>
       </div>
-    </Container>
+    </PageAnimationWrapper>
   );
 };
 

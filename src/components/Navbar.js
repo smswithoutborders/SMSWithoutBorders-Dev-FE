@@ -1,25 +1,24 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import logo from "images/logo.png";
 import PropTypes from "prop-types";
-import { FiLogOut, FiMenu, FiX, FiShield, FiFile } from "react-icons/fi";
+import {
+  FiLogOut,
+  FiMenu,
+  FiX,
+  FiShield,
+  FiGrid,
+  FiFile,
+} from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
-import { authSelector, clearAuth } from "features";
+import { authSelector, logout } from "features";
 import { clearCache } from "services/storage";
-import { Link } from "react-router-dom";
-import { Button } from ".";
-import styled from "styled-components";
-import clsx from "clsx";
-
-const NavLink = styled(Link).attrs(({ $isactive }) => ({
-  className: clsx(
-    "w-full px-4 py-6 flex items-center",
-    $isactive && "bg-blue-800 text-white"
-  ),
-}))``;
+import { Button } from "./shared";
+import { NavLink, ExternalLink } from "./NavLinks";
+import toast from "react-hot-toast";
 
 const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
   return (
-    <nav className="hidden p-4 text-white bg-gray-800 md:block">
+    <nav className="hidden p-4 text-white bg-gradient-to-r from-black to-slate-900 md:block">
       <div className="flex flex-row flex-wrap items-center justify-between">
         <div className="flex items-center">
           <FiMenu
@@ -32,9 +31,16 @@ const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
           <span className="ml-1 tracking-wide text-light">Developer</span>
         </div>
         <div className="items-center hidden md:flex">
-          <Link to="docs" className="mr-4 text-sm text-gray-300">
+          <ExternalLink
+            onClick={() => onToggle()}
+            key="documentation"
+            href="https://smswithoutborders.github.io/docs/developers/introduction"
+            target="_blank"
+            rel="noreferrer"
+            className="px-4 py-0 font-normal"
+          >
             Docs
-          </Link>
+          </ExternalLink>
           <div className="flex items-center justify-center mr-2 bg-gray-100 rounded-full w-7 h-7">
             <p className="font-bold text-center text-gray-800">
               {user?.email.charAt(0)}
@@ -57,13 +63,6 @@ const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
 // all parameters are  gotten from the parent Dashboard component
 
 const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
-  const [active, setActive] = useState(0);
-
-  function toggleNav(index) {
-    setActive(index);
-    onToggle();
-  }
-
   return (
     <Fragment>
       <nav className="px-4 py-5 text-white bg-gray-800 md:hidden">
@@ -90,22 +89,25 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
       {!open && (
         <div className="absolute z-50 flex flex-col w-full h-full bg-white lg:hidden">
           <div className="">
-            <NavLink
-              to="credentials"
-              $isactive={active === 0}
-              onClick={() => toggleNav(0)}
-            >
+            <NavLink to="products" onClick={() => onToggle()}>
+              <FiGrid size={20} className="mr-2" />
+              <span className="">Products</span>
+            </NavLink>
+            <NavLink to="credentials" onClick={() => onToggle()}>
               <FiShield size={20} className="mr-2" />
               <span className="">Credentials</span>
             </NavLink>
-            <NavLink
-              to="docs"
-              $isactive={active === 1}
-              onClick={() => toggleNav(1)}
+            <ExternalLink
+              onClick={() => onToggle()}
+              key="documentation"
+              href="https://smswithoutborders.github.io/docs/developers/introduction"
+              target="_blank"
+              rel="noreferrer"
+              className="font-normal"
             >
               <FiFile size={20} className="mr-2" />
               <span className="">Docs</span>
-            </NavLink>
+            </ExternalLink>
           </div>
 
           <div className="flex items-center justify-between px-4 py-5 bg-gray-100">
@@ -134,10 +136,10 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
 const Navbar = ({ open, onToggle }) => {
   const dispatch = useDispatch();
   const user = useSelector(authSelector);
-
   const handleLogOut = () => {
-    dispatch(clearAuth());
+    dispatch(logout());
     clearCache();
+    toast.success("Logout successful");
   };
 
   return (

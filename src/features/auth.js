@@ -1,10 +1,9 @@
 // user management
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  id: "",
+  uid: "",
   email: "",
-  sessionID: "",
 };
 
 export const authSlice = createSlice({
@@ -12,12 +11,11 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     saveAuth: (state, action) => {
-      const { id, email, session_id } = action.payload;
+      const { uid, email } = action.payload;
       return {
         ...state,
-        id,
+        uid,
         email,
-        sessionID: session_id,
       };
     },
     clearAuth: (state) => {
@@ -34,5 +32,7 @@ export const { saveAuth, clearAuth } = authSlice.actions;
 
 // auth selector
 export const authSelector = (state) => state.auth;
+
+export const logout = createAction("LOG_OUT");
 
 export default authSlice.reducer;

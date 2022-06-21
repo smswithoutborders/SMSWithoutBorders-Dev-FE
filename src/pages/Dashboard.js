@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Navbar, SideNav } from "components";
+import { Footer, Navbar, SideNav } from "components";
 import { Outlet } from "react-router-dom";
 import clsx from "clsx";
 
@@ -8,7 +8,7 @@ const Dashboard = () => {
   return (
     <Fragment>
       <Navbar open={open} onToggle={() => setOpen(!open)} />
-      <div className="grid h-screen grid-cols-12 bg-gray-50">
+      <div className="grid h-screen grid-cols-12 bg-gray-100">
         <SideNav open={open} className="col-span-2" />
         <div
           className={clsx(
@@ -18,6 +18,7 @@ const Dashboard = () => {
           <Outlet />
         </div>
       </div>
+      <Footer />
     </Fragment>
   );
 };

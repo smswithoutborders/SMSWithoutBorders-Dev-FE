@@ -1,20 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import { FiShield } from "react-icons/fi";
-import { Link } from "react-router-dom";
-
-//use transient prop isactive
-export const SideNavItem = styled(Link).attrs(({ $isactive }) => ({
-  className: clsx(
-    "w-full px-4 py-3 flex items-center",
-    $isactive && "bg-blue-800 text-white"
-  ),
-}))``;
+import { FiGrid, FiShield } from "react-icons/fi";
+import { SideNavLink } from "./NavLinks";
 
 const SideNav = ({ open, className }) => {
-  const [active, setActive] = useState(0);
   return (
     <nav
       className={clsx(
@@ -23,14 +13,14 @@ const SideNav = ({ open, className }) => {
         className
       )}
     >
-      <SideNavItem
-        to="credentials"
-        $isactive={active === 0}
-        onClick={() => setActive(0)}
-      >
+      <SideNavLink to="products">
+        <FiGrid size={20} className="mr-2" />
+        <span className="">Products</span>
+      </SideNavLink>
+      <SideNavLink to="credentials">
         <FiShield size={20} className="mr-2" />
         <span className="">Credentials</span>
-      </SideNavItem>
+      </SideNavLink>
     </nav>
   );
 };

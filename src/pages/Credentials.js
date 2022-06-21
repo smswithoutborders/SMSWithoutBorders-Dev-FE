@@ -8,11 +8,10 @@ import toast from "react-hot-toast";
 const Credentials = () => {
   const [showAuthID, setShowAuthID] = useState(false);
   const [showAuthKey, setShowAuthKey] = useState(false);
+  const [newCredentials, { isLoading }] = useNewCredentialsMutation();
   const credentials = useSelector(credentialsSelector);
   const auth = useSelector(authSelector);
   const dispatch = useDispatch();
-  const [newCredentials, { isLoading }] = useNewCredentialsMutation();
-
   // toggle key visibility
   function toggleAuthID() {
     setShowAuthID(!showAuthID);
@@ -25,37 +24,10 @@ const Credentials = () => {
   async function handleCredGeneration() {
     try {
       const newCreds = await newCredentials(auth).unwrap();
+      toast.success("Credentials generated");
       dispatch(saveCredentials(newCreds));
     } catch (error) {
-      switch (error.status) {
-        case 400:
-          toast.error("An error occured. Please contact support");
-          break;
-        case 401:
-          toast.error(
-            "Sorry you are not authorized to use this service. Please contact support"
-          );
-          break;
-        case 409:
-          toast.error(
-            "There is a possible duplicate of this account please contact support"
-          );
-          break;
-
-        case 429:
-          toast.error(
-            "Too many failed attempts please wait a while and try again"
-          );
-          break;
-        case 500:
-          toast.error("A critical error occured. Please contact support");
-          break;
-        case "FETCH_ERROR":
-          toast.error("An error occured, please check your network try again");
-          break;
-        default:
-          toast.error("An error occured, please try again");
-      }
+      // we handle errors with middleware
     }
   }
 
