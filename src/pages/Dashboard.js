@@ -8,8 +8,11 @@ const Dashboard = () => {
   return (
     <Fragment>
       <Navbar open={open} onToggle={() => setOpen(!open)} />
-      <div className="grid h-screen grid-cols-12 bg-gray-100">
-        <SideNav open={open} className="col-span-2" />
+      <div className="grid h-full min-h-screen grid-cols-12 mb-10 overflow-x-auto bg-gray-100">
+        <SideNav
+          open={open}
+          className="h-full col-span-2 border-r border-gray-200"
+        />
         <div
           className={clsx(
             open ? "col-span-full lg:col-span-10" : "col-span-12"

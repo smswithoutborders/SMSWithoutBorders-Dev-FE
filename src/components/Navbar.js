@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 
 const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
   return (
-    <nav className="hidden p-4 text-white bg-gradient-to-r from-black to-slate-900 md:block">
+    <nav className="sticky top-0 hidden p-4 text-white bg-gradient-to-r from-black to-slate-900 md:block">
       <div className="flex flex-row flex-wrap items-center justify-between">
         <div className="flex items-center">
           <FiMenu
@@ -65,7 +65,7 @@ const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
 const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
   return (
     <Fragment>
-      <nav className="px-4 py-5 text-white bg-gray-800 md:hidden">
+      <nav className="z-50 px-4 py-5 text-white bg-gray-800 md:hidden">
         <div className="flex">
           {!open ? (
             <FiX

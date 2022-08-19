@@ -3,8 +3,8 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import { Button } from "./shared";
 import { FiX } from "react-icons/fi";
-import { BsArrowRight } from "react-icons/bs";
 import { FiExternalLink } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 export const ProductCard = ({
   name,
@@ -71,25 +71,29 @@ export const ProductCard = ({
         <div className="">
           <h3 className="my-2">{label}</h3>
           <p className="truncate">{description}</p>
-          <div className="grid grid-cols-2 gap-0">
-            <button
-              className="flex items-center text-sm text-blue-800 cols-span-1"
+          <div className="grid grid-cols-3 gap-0 mb-2 text-sm text-blue-800 justify-items-start">
+            <button className="col-span-1" onClick={() => setOpen(!open)}>
+              summary
+            </button>
+
+            <Link
+              to={name}
+              className="col-span-1 text-blue-800 no-underline appearance-none"
               onClick={() => setOpen(!open)}
             >
-              <span className="mr-2">learn more </span>
-              <BsArrowRight />
-            </button>
+              metrics
+            </Link>
 
             {subscribed ? (
               <button
-                className="col-span-1 text-sm text-blue-800"
+                className="col-span-1"
                 onClick={() => handleUnSubscription(name)}
               >
                 unsubscribe
               </button>
             ) : (
               <button
-                className="col-span-1 text-sm text-blue-800"
+                className="col-span-1"
                 onClick={() => handleSubscription(name)}
               >
                 subscribe

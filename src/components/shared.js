@@ -5,7 +5,7 @@ import waves from "images/waves.jpg";
 export const Button = styled.button.attrs(
   ({ className, disabled, outline }) => ({
     className: clsx(
-      "px-8 py-2 outline-none rounded-lg focus:outline-none justify-center inline-flex items-center",
+      "px-4 py-2 outline-none rounded-lg focus:outline-none justify-center inline-flex items-center",
       disabled
         ? "text-gray-500 bg-gray-200"
         : outline

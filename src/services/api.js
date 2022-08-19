@@ -60,6 +60,13 @@ export const API = createApi({
         responseHandler: (response) => response.text(), // expect response type to be text/plain
       }),
     }),
+    getMetrics: builder.query({
+      query: () => ({
+        url: process.env.REACT_APP_METRICS_URL,
+        method: "GET",
+        credentials: "omit",
+      }),
+    }),
   }),
 });
 
@@ -70,6 +77,7 @@ export const {
   useLoginMutation,
   useSignupMutation,
   useGetProductsQuery,
+  useGetMetricsQuery,
   useSubscriptionMutation,
   useUnSubscriptionMutation,
   useNewCredentialsMutation,

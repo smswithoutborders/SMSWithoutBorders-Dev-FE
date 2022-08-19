@@ -12,6 +12,9 @@ import {
   Credentials,
 } from "pages";
 
+/* products */
+import OpenAPI from "pages/products/OpenAPI";
+
 const App = () => {
   return (
     <Fragment>
@@ -42,7 +45,10 @@ const App = () => {
               }
             >
               <Route index element={<Navigate to="products" />} />
-              <Route path="products" element={<Products />} />
+              <Route path="products">
+                <Route index element={<Products />} />
+                <Route path="openapi" element={<OpenAPI />} />
+              </Route>
               <Route path="credentials" element={<Credentials />} />
             </Route>
             <Route path="*" element={<NotFound />} />
