@@ -5,16 +5,30 @@ import PropTypes from "prop-types";
 const Table = ({ data, refresh }) => {
   const [count, setCount] = useState(10);
   const [filterText, setFilterText] = useState("");
-  const [filterType, setFilterType] = useState("uuid");
+  const [filterType, setFilterType] = useState("all");
   const [filterDate, setFilterDate] = useState("");
 
   // filtering by criteria
   const filtered = useMemo(() => {
     if (!data) return [];
     else if (!filterText && !filterDate) return data;
+    else if (filterType !== "all") {
+      return data
+        .filter((item) => item.timestamp.includes(filterDate))
+        .filter((item) => item[filterType].includes(filterText));
+    }
     return data
       .filter((item) => item.timestamp.includes(filterDate))
-      .filter((item) => item[filterType].includes(filterText));
+      .filter((item) => {
+        let match = false;
+        for (const key in item) {
+          // fuzzy matching
+          if (item[key].toLowerCase().includes(filterText.toLowerCase())) {
+            match = true;
+          }
+        }
+        return match;
+      });
   }, [data, filterText, filterType, filterDate]);
 
   // items per page
@@ -44,6 +58,7 @@ const Table = ({ data, refresh }) => {
           className="py-2 border border-gray-300 rounded-md"
           onChange={(evt) => setFilterType(evt.target.value)}
         >
+          <option value="all">filter by all</option>
           <option value="uuid">filter by UUID</option>
           <option value="number">filter by number</option>
           <option value="operator">filter by operator</option>
@@ -119,7 +134,8 @@ const Table = ({ data, refresh }) => {
           <tr>
             <td colSpan={4} className="p-2"></td>
             <td className="p-2 font-bold">
-              {count} <span className="font-light"> of </span> {filtered.length}
+              {count} <span className="font-light"> of </span>{" "}
+              {filtered?.length}
               <span className="font-light"> items</span>
             </td>
           </tr>
