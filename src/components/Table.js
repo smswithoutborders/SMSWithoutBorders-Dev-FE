@@ -6,13 +6,16 @@ const Table = ({ data, refresh }) => {
   const [count, setCount] = useState(10);
   const [filterText, setFilterText] = useState("");
   const [filterType, setFilterType] = useState("uuid");
+  const [filterDate, setFilterDate] = useState("");
 
   // filtering by criteria
   const filtered = useMemo(() => {
     if (!data) return [];
-    else if (!filterText) return data;
-    return data.filter((item) => item[filterType].includes(filterText));
-  }, [data, filterText, filterType]);
+    else if (!filterText && !filterDate) return data;
+    return data
+      .filter((item) => item.timestamp.includes(filterDate))
+      .filter((item) => item[filterType].includes(filterText));
+  }, [data, filterText, filterType, filterDate]);
 
   // items per page
   const pageItems = useMemo(() => {
@@ -28,16 +31,17 @@ const Table = ({ data, refresh }) => {
           aria-label="filter"
           type="text"
           placeholder="filter"
-          className="flex-grow py-2 border border-gray-400 rounded-md"
+          className="flex-grow py-2 border border-gray-300 rounded-md"
           onInput={(evt) => {
             setFilterText(evt.target.value);
           }}
         />
+
         {/* filter type */}
         <select
           value={filterType}
           aria-label="filter type"
-          className="py-2 border border-gray-400 rounded-md"
+          className="py-2 border border-gray-300 rounded-md"
           onChange={(evt) => setFilterType(evt.target.value)}
         >
           <option value="uuid">filter by UUID</option>
@@ -46,11 +50,19 @@ const Table = ({ data, refresh }) => {
           <option value="timestamp">filter by timestamp</option>
           <option value="status">filter by status</option>
         </select>
+
+        {/* Date range  */}
+        <input
+          aria-label="date input"
+          type="date"
+          className="flex-grow py-2 border border-gray-300 rounded-md"
+          onInput={(evt) => setFilterDate(evt.target.value)}
+        />
         {/* items per page */}
         <select
           value={count}
           aria-label="items per page"
-          className="py-2 border border-gray-400 rounded-md"
+          className="py-2 border border-gray-300 rounded-md"
           onChange={(evt) => setCount(evt.target.value)}
         >
           <option value="5">5 per page</option>
@@ -93,7 +105,12 @@ const Table = ({ data, refresh }) => {
             <tr>
               <td colSpan={5} className="py-10 text-center">
                 <BiMessageError size={48} className="inline" />
-                <p className="my-1 text-lg">No available items</p>
+                <p className="my-1 text-lg">
+                  No {filterText ? " matching" : "available"} items
+                </p>
+                {filterText && (
+                  <p className="mt-0">Try changing the filter type</p>
+                )}
               </td>
             </tr>
           )}

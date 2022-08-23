@@ -18,7 +18,7 @@ const OpenAPI = () => {
       <div className="max-w-screen-xl p-6 mx-auto prose">
         <h3>An error occured</h3>
         <p className="">
-          Sorry, an error occured while loading products. If error persists,
+          Sorry, an error occured while loading metrics. If error persists,
           please contact support
         </p>
         <Button onClick={() => refetch()}>try again</Button>
