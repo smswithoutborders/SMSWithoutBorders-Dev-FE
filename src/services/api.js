@@ -61,10 +61,9 @@ export const API = createApi({
       }),
     }),
     getMetrics: builder.query({
-      query: () => ({
-        url: process.env.REACT_APP_METRICS_URL,
+      query: ({ uid, product, authID }) => ({
+        url: `/users/${uid}/products/${product}/metrics/${authID}`,
         method: "GET",
-        credentials: "omit",
       }),
     }),
   }),

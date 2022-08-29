@@ -1,16 +1,23 @@
 import React from "react";
 import { TabBar, Button, Loader, useTitle, Table } from "components";
 import { useGetMetricsQuery } from "services";
+import { authSelector, credentialsSelector } from "features";
+import { useSelector } from "react-redux";
 
 const OpenAPI = () => {
   useTitle("OpenAPI");
-
+  const creds = useSelector(credentialsSelector);
+  const auth = useSelector(authSelector);
   const {
     data: metrics = [],
     isFetching,
     isError,
     refetch,
-  } = useGetMetricsQuery();
+  } = useGetMetricsQuery({
+    uid: auth?.uid,
+    authID: creds.authID,
+    product: "openapi",
+  });
 
   if (isFetching) return <Loader />;
   else if (isError) {
@@ -34,27 +41,51 @@ const OpenAPI = () => {
         <div className="grid grid-cols-12 gap-4 mb-10">
           <div className="p-4 bg-white border border-gray-300 rounded-md col-span-full md:col-span-3">
             <h3 className="mt-0 text-base font-medium text-blue-800">Total</h3>
-            <span className="text-4xl font-light">300</span>
+            <span
+              className={`${
+                metrics?.summary.total ? "text-4xl" : "text-2xl"
+              } font-light`}
+            >
+              {metrics?.summary?.total ?? "N/A"}
+            </span>
           </div>
           <div className="p-4 bg-white border border-gray-300 rounded-md col-span-full md:col-span-3">
             <h3 className="mt-0 text-base font-medium text-blue-800">
               Successful
             </h3>
-            <span className="text-4xl font-light">250</span>
+            <span
+              className={`${
+                metrics?.summary.successful ? "text-4xl" : "text-2xl"
+              } font-light`}
+            >
+              {metrics?.summary?.successful ?? "N/A"}
+            </span>
           </div>
           <div className="p-4 bg-white border border-gray-300 rounded-md col-span-full md:col-span-3">
             <h3 className="mt-0 text-base font-medium text-blue-800">Failed</h3>
-            <span className="text-4xl font-light">20</span>
+            <span
+              className={`${
+                metrics?.summary.failed ? "text-4xl" : "text-2xl"
+              } font-light`}
+            >
+              {metrics?.summary?.failed ?? "N/A"}
+            </span>
           </div>
           <div className="p-4 bg-white border border-gray-300 rounded-md col-span-full md:col-span-3">
             <h3 className="mt-0 text-base font-medium text-blue-800">
               Pending
             </h3>
-            <span className="text-4xl font-light">40</span>
+            <span
+              className={`${
+                metrics?.summary.pending ? "text-4xl" : "text-2xl"
+              } font-light`}
+            >
+              {metrics?.summary?.pending ?? "N/A"}
+            </span>
           </div>
         </div>
 
-        <Table data={metrics} refresh={refetch} />
+        <Table data={metrics.data} refresh={refetch} />
       </div>
     </div>
   );
