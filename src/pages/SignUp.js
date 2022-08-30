@@ -31,7 +31,8 @@ const schema = yup.object({
     .oneOf([yup.ref("password"), null], "Passwords do not match"),
   acceptTerms: yup
     .bool()
-    .oneOf([true], "Please review and accept terms and conditions to proceed"),
+    .oneOf([true], "Please review and accept terms and conditions to proceed")
+    .required("Please confirm you agree to our terms of use"),
 });
 
 const SignUp = () => {
@@ -79,30 +80,27 @@ const SignUp = () => {
   if (isSuccess) {
     return (
       <PageAnimationWrapper>
-        <div className="grid h-screen place-items-center">
-          <div className="container flex flex-wrap items-center mx-auto">
-            <div className="flex flex-col w-full p-8 m-4 mt-10 bg-white shadow-lg lg:w-2/6 md:w-1/2 rounded-xl md:mx-auto md:mt-0">
-              <div className="mb-8">
-                <img src={logo} alt="logo" className="h-24 mx-auto my-8" />
-                <h1 className="text-2xl font-bold text-center">
-                  SMSWithoutBorders
-                </h1>
-                <p className="my-1 text-2xl font-light tracking-wide text-center">
-                  Developer
-                </p>
-              </div>
-
-              <p className="mb-4 text-center text-gray-800">
-                Your account has been created. Please login
+        <div className="grid h-full min-h-screen justify-items-center 2xl:place-items-center">
+          <div className="container flex flex-col p-8 mt-10 md:max-w-md md:shadow-lg md:rounded-xl backdrop-blur-xl">
+            <div className="mb-8 text-gray-200">
+              <img src={logo} alt="logo" className="h-24 mx-auto mb-4" />
+              <h1 className="text-2xl font-bold text-center">
+                SMSWithoutBorders
+              </h1>
+              <p className="my-1 text-xl font-light tracking-widest text-center">
+                DEVELOPER
               </p>
-
-              <Button
-                className="w-1/3 mx-auto"
-                onClick={() => navigate("/login")}
-              >
-                login
-              </Button>
             </div>
+            <p className="mb-6 text-center text-gray-300">
+              Your account has been created. Please login
+            </p>
+
+            <Button
+              className="w-1/3 mx-auto"
+              onClick={() => navigate("/login")}
+            >
+              login
+            </Button>
           </div>
         </div>
       </PageAnimationWrapper>
@@ -111,18 +109,18 @@ const SignUp = () => {
 
   return (
     <PageAnimationWrapper>
-      <div className="grid min-h-screen place-items-stretch md:place-items-center">
-        <div className="container p-8 bg-white md:my-20 md:max-w-md md:shadow-lg md:rounded-xl">
-          <div className="mb-8">
-            <img src={logo} alt="logo" className="h-32 mx-auto my-6" />
+      <div className="grid h-full min-h-screen justify-items-center 2xl:place-items-center">
+        <div className="container p-8 mt-10 md:max-w-md md:shadow-lg md:rounded-xl backdrop-blur-xl">
+          <div className="mb-8 text-gray-200">
+            <img src={logo} alt="logo" className="h-24 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-center">
               SMSWithoutBorders
             </h1>
-            <p className="my-1 text-2xl font-light tracking-wide text-center">
-              Developer
+            <p className="my-1 text-xl font-light tracking-widest text-center">
+              DEVELOPER
             </p>
           </div>
-          <form onSubmit={handleSubmit(handleSignUp)}>
+          <form className="text-gray-300" onSubmit={handleSubmit(handleSignUp)}>
             <FormGroup>
               <Label htmlFor="email" required>
                 Email address
@@ -170,32 +168,37 @@ const SignUp = () => {
                 control={control}
                 name="acceptTerms"
                 render={({ field: { value, onChange } }) => (
-                  <div className="inline-flex">
+                  <div className="inline-flex items-start">
                     <CheckBox
                       value={value}
                       defaultChecked={watch("acceptTerms")}
                       onChange={onChange}
                       className="mt-0.5"
+                      error={errors.acceptTerms}
                     />
                     <div className="ml-2 text-sm">
                       <p className="font-medium">Terms and Conditions</p>
-                      <p className="text-sm text-gray-600">
-                        By signing up I agree to the <a href="#terms">terms</a>{" "}
+                      <p className="text-sm text-gray-300">
+                        By signing up I agree to the{" "}
+                        <a className="text-blue-300" href="#terms">
+                          terms
+                        </a>{" "}
                         of use
                       </p>
                     </div>
                   </div>
                 )}
               />
+              {errors.acceptTerms && (
+                <ErrorMessage>{errors.acceptTerms?.message}</ErrorMessage>
+              )}
             </FormGroup>
-            <Button className="w-full" disabled={!watch("acceptTerms")}>
-              sign up
-            </Button>
+            <Button className="w-full mt-4">sign up</Button>
           </form>
 
-          <p className="mt-4 text-sm text-center text-gray-600">
+          <p className="mt-4 text-sm text-center text-gray-300">
             Already have an account? &nbsp;
-            <Link to="/login" className="text-blue-800">
+            <Link to="/login" className="text-blue-300">
               login
             </Link>
           </p>

@@ -92,7 +92,7 @@ const MainNavbar = () => {
             onClick={() => toggleMenu()}
             key="signup"
             to="/signup"
-            className="p-4 text-white bg-blue-800 border-none lg:px-6 lg:py-2 lg:m-4 lg:rounded-3xl"
+            className="p-4 text-gray-300 bg-blue-800 border-none lg:px-6 lg:py-2 lg:m-4 lg:rounded-lg"
           >
             signup
           </Link>
@@ -107,29 +107,29 @@ const MainNavbar = () => {
       className="flex items-center lg:ml-4"
       onClick={() => toggleMenu()}
     >
-      <img src={logo} alt="logo" className="w-8 h-8 mr-3" />
-      <p className="text-[0.95rem] md:text-base">
+      <img src={logo} alt="logo" className="w-5 h-5 mr-2" />
+      <p className="text-[0.95rem]">
         <span className="font-bold">SMSWithoutBorders</span> |
-        <span className="font-normal"> Developers</span>
+        <span className="font-normal tracking-widest"> DEVELOPER</span>
       </p>
     </Link>
   );
 
   return (
-    <div className="sticky top-0 z-50 bg-white md:bg-transparent md:text-white shadow-3xl">
-      <nav
-        className={clsx(
-          "justify-between hidden lg:flex",
-          toggle
-            ? "bg-gradient-to-tl md:bg-gradient-to-r from-black via-slate-900 to-slate-900"
-            : "bg-transparent"
-        )}
-      >
+    <div
+      className={clsx(
+        "sticky top-0 z-50 text-gray-300 shadow-3xl mx-auto md:text-sm",
+        toggle
+          ? "bg-gradient-to-tl md:bg-gradient-to-r from-black via-slate-900 to-slate-900"
+          : "bg-transparent"
+      )}
+    >
+      <nav className="justify-between hidden max-w-screen-xl mx-auto lg:flex">
         <Logo />
         <SharedLinks />
         <ActionLinks />
       </nav>
-      <div className="lg:hidden">
+      <nav className="lg:hidden">
         <div className="flex items-center justify-between p-4">
           <Logo />
           <button className="appearance-none" onClick={() => toggleMenu()}>
@@ -153,7 +153,7 @@ const MainNavbar = () => {
             <ActionLinks />
           </Transition>
         )}
-      </div>
+      </nav>
     </div>
   );
 };

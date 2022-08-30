@@ -50,22 +50,22 @@ export const PasswordInput = forwardRef(
 
         {showStrength && strength !== null && (
           <div className="w-full mt-2 mb-2">
-            <div className="grid w-full h-1 grid-cols-4 bg-gray-200 rounded-full">
+            <div className="grid w-full h-1 grid-cols-4 bg-gray-500 rounded-full">
               <div
                 className={clsx(
                   strength === 4
-                    ? "bg-lime-500 col-span-full"
+                    ? "bg-green-600 col-span-full"
                     : strength === 3
-                    ? "bg-indigo-500 col-span-3"
+                    ? "bg-indigo-600 col-span-3"
                     : strength === 2
-                    ? "bg-yellow-500 col-span-2"
+                    ? "bg-yellow-600 col-span-2"
                     : strength === 1
-                    ? "bg-fuchsia-500 col-span-1"
-                    : "bg-red-500"
+                    ? "bg-fuchsia-600 col-span-1"
+                    : "bg-red-600"
                 )}
               ></div>
             </div>
-            <div className="my-1 text-xs text-right text-gray-500">
+            <div className="my-1 text-xs text-right">
               <span>
                 {strength === 4
                   ? "strong"

@@ -9,7 +9,7 @@ export const Landing = () => {
       <div className="max-w-screen-xl mx-auto prose prose-invert">
         <div className="grid min-h-screen place-items-center">
           <div className="p-8 text-center">
-            <h1 className="leading-relaxed tracking-wide text-white lg:text-6xl">
+            <h1 className="leading-relaxed tracking-wide text-gray-300 lg:text-6xl">
               <span className="">SW/OB</span> for
               <span className="text-blue-800"> Developers</span>
             </h1>
@@ -21,7 +21,7 @@ export const Landing = () => {
 
             <div className="flex flex-col justify-center max-w-md px-12 mx-auto mt-16 space-y-4 md:space-y-0 md:space-x-4 md:flex-row lg:justify-start md:px-0">
               <Link
-                className="flex items-center justify-center flex-1 py-3 text-lg text-white no-underline bg-blue-800 appearance-none rounded-3xl"
+                className="flex items-center justify-center flex-1 py-3 text-lg text-gray-300 no-underline bg-blue-800 rounded-lg appearance-none"
                 to="signup"
               >
                 Sign Up
@@ -29,7 +29,7 @@ export const Landing = () => {
 
               <a
                 href="#tutorials"
-                className="inline-flex items-center justify-center flex-1 py-3 text-lg text-white no-underline border appearance-none rounded-3xl"
+                className="inline-flex items-center justify-center flex-1 py-3 text-lg text-gray-300 no-underline border rounded-lg appearance-none"
               >
                 Tutorials
               </a>
@@ -45,11 +45,11 @@ export const Landing = () => {
             Quick guides and resources to help you start building
           </p>
 
-          <div className="p-8 mb-8 text-white shadow-xl bg-gradient-to-br from-blue-800 to-black lg:py-16 rounded-2xl">
+          <div className="max-w-screen-md p-8 mx-auto mb-8 text-gray-300 shadow-xl bg-gradient-to-br from-blue-800 to-black lg:py-16 rounded-2xl">
             <span className="font-light">Tutorial</span>
-            <h2 className="my-4 text-white">How to create an account</h2>
+            <h2 className="my-4 text-gray-300">How to create an account</h2>
             <a
-              className="flex items-center justify-between font-light text-white no-underline"
+              className="flex items-center justify-between font-light text-gray-300 no-underline"
               href="https://smswithoutborders.github.io/docs/developers/getting-started"
               target="_blank"
               rel="noreferrer"
@@ -59,11 +59,11 @@ export const Landing = () => {
             </a>
           </div>
 
-          <div className="p-8 border border-gray-800 shadow-xl rounded-2xl backdrop-blur-xl lg:py-16">
+          <div className="max-w-screen-md p-8 mx-auto border border-gray-800 shadow-xl rounded-2xl backdrop-blur-xl lg:py-16">
             <span className="font-light">Tutorial</span>
-            <h2 className="my-4 text-white">Getting Started with OpenAPI</h2>
+            <h2 className="my-4 text-gray-300">Getting Started with OpenAPI</h2>
             <a
-              className="flex items-center justify-between font-light text-white no-underline"
+              className="flex items-center justify-between font-light text-gray-300 no-underline"
               href="https://smswithoutborders-openapi.readthedocs.io/en/latest/"
               target="_blank"
               rel="noreferrer"

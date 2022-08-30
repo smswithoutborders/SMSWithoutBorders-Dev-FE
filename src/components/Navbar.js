@@ -16,9 +16,9 @@ import { Button } from "./shared";
 import { NavLink, ExternalLink } from "./NavLinks";
 import toast from "react-hot-toast";
 
-const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
+const DesktopNav = ({ onToggle, user, handleLogOut }) => {
   return (
-    <nav className="sticky top-0 hidden p-4 text-white bg-gradient-to-r from-black to-slate-900 md:block">
+    <nav className="sticky top-0 hidden p-4 text-sm text-gray-300 bg-gradient-to-r from-black to-slate-900 md:block">
       <div className="flex flex-row flex-wrap items-center justify-between">
         <div className="flex items-center">
           <FiMenu
@@ -26,9 +26,10 @@ const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
             className="mr-4 cursor-pointer"
             onClick={() => onToggle()}
           />
-          <img src={logo} alt="logo" className="inline-block w-6 h-6 mx-auto" />
-          <span className="ml-2 font-medium">SMSWithoutBorders</span>
-          <span className="ml-1 tracking-wide text-light">Developer</span>
+          <img src={logo} alt="logo" className="inline-block w-5 h-5 mr-2" />
+          <span className="font-bold">SMSWithoutBorders</span>
+          <span> &nbsp; | &nbsp;</span>
+          <span className="font-normal tracking-widest"> DEVELOPER</span>
         </div>
         <div className="items-center hidden md:flex">
           <ExternalLink
@@ -65,7 +66,7 @@ const DesktopNav = ({ open, onToggle, user, handleLogOut }) => {
 const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
   return (
     <Fragment>
-      <nav className="z-50 px-4 py-5 text-white bg-gray-800 md:hidden">
+      <nav className="sticky top-0 z-50 px-4 py-5 text-sm text-gray-300 bg-gray-800 md:hidden">
         <div className="flex">
           {!open ? (
             <FiX
@@ -80,9 +81,12 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
               onClick={() => onToggle()}
             />
           )}
-          <img src={logo} alt="logo" className="inline-block w-6 h-6" />
-          <span className="ml-2 font-medium">SMSWithoutBorders</span>
-          <span className="ml-1 tracking-wide text-light">Developer</span>
+          <img src={logo} alt="logo" className="inline-block w-5 h-5" />
+          <span className="ml-2 font-bold">SMSWithoutBorders</span>
+          <span> &nbsp; | &nbsp;</span>
+          <span className="ml-1 font-normal tracking-widest text-light">
+            DEVELOPER
+          </span>
         </div>
       </nav>
 

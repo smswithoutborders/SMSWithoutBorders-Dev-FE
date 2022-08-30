@@ -76,18 +76,18 @@ const LogIn = () => {
 
   return (
     <PageAnimationWrapper>
-      <div className="grid min-h-screen place-items-stretch md:place-items-center">
-        <div className="container p-8 bg-white md:my-20 md:max-w-md md:shadow-lg md:rounded-xl">
-          <div className="mb-8">
-            <img src={logo} alt="logo" className="h-32 mx-auto my-6" />
+      <div className="grid min-h-screen justify-items-center 2xl:place-items-center">
+        <div className="container p-8 mt-10 md:max-w-md md:shadow-lg md:rounded-xl backdrop-blur-xl">
+          <div className="mb-8 text-gray-200">
+            <img src={logo} alt="logo" className="h-24 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-center">
               SMSWithoutBorders
             </h1>
-            <p className="my-1 text-2xl font-light tracking-wide text-center">
-              Developer
+            <p className="my-1 text-xl font-light tracking-widest text-center">
+              DEVELOPER
             </p>
           </div>
-          <form onSubmit={handleSubmit(handleLogin)}>
+          <form className="text-gray-300" onSubmit={handleSubmit(handleLogin)}>
             <FormGroup>
               <Label htmlFor="email" required>
                 Email address
@@ -116,13 +116,13 @@ const LogIn = () => {
                 <ErrorMessage>{errors.password?.message}</ErrorMessage>
               )}
             </FormGroup>
-            <Button className="w-full">login</Button>
+            <Button className="w-full mt-2">login</Button>
           </form>
 
-          <p className="mt-4 text-sm text-center text-gray-600">
+          <p className="mt-4 text-sm text-center text-gray-300">
             Dont have an account? &nbsp;
-            <Link to="/signup" className="text-blue-800">
-              Sign Up
+            <Link to="/signup" className="text-blue-300">
+              signup
             </Link>
           </p>
         </div>
