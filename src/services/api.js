@@ -61,8 +61,8 @@ export const API = createApi({
       }),
     }),
     getMetrics: builder.query({
-      query: ({ uid, product, authID }) => ({
-        url: `/users/${uid}/products/${product}/metrics/${authID}`,
+      query: ({ uid, product }) => ({
+        url: `/users/${uid}/products/${product}/metrics`,
         method: "GET",
       }),
     }),

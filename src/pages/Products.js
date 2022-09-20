@@ -74,10 +74,10 @@ const Products = () => {
   }
 
   return (
-    <div className="flex-1 w-full">
+    <div className="flex-1 w-full text-gray-300">
       <TabBar title="Products" />
       <div className="max-w-full p-6 prose">
-        <h2>Featured Products</h2>
+        <h2 className="text-gray-300">Featured Products</h2>
         <div className="grid grid-cols-12 gap-4">
           <Fragment>
             {unsubscribed.map((product) => (

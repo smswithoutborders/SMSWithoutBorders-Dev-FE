@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { authSelector, logout } from "features";
 import { clearCache } from "services/storage";
 import { Button } from "./shared";
+import { BsPersonCircle } from "react-icons/bs";
 import { NavLink, ExternalLink } from "./NavLinks";
 import toast from "react-hot-toast";
 
@@ -31,7 +32,7 @@ const DesktopNav = ({ onToggle, user, handleLogOut }) => {
           <span> &nbsp; | &nbsp;</span>
           <span className="font-normal tracking-widest"> DEVELOPER</span>
         </div>
-        <div className="items-center hidden md:flex">
+        <div className="items-center hidden space-x-4 md:flex">
           <ExternalLink
             onClick={() => onToggle()}
             key="documentation"
@@ -42,15 +43,13 @@ const DesktopNav = ({ onToggle, user, handleLogOut }) => {
           >
             Docs
           </ExternalLink>
-          <div className="flex items-center justify-center mr-2 bg-gray-100 rounded-full w-7 h-7">
-            <p className="font-bold text-center text-gray-800">
-              {user?.email.charAt(0)}
-            </p>
+          <div className="flex items-center justify-center space-x-1">
+            <BsPersonCircle size={18} />
+            <p className="mr-4 text-sm text-gray-300">{user?.email}</p>
           </div>
-          <p className="mr-4 text-sm text-gray-300">{user?.email}</p>
           <button
             onClick={() => handleLogOut()}
-            className="flex items-center px-2 py-1 text-sm border rounded-lg"
+            className="flex items-center text-sm"
           >
             <FiLogOut className="mr-1 align-middle" />
             <span>Logout</span>
@@ -66,7 +65,7 @@ const DesktopNav = ({ onToggle, user, handleLogOut }) => {
 const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
   return (
     <Fragment>
-      <nav className="sticky top-0 z-50 px-4 py-5 text-sm text-gray-300 bg-gray-800 md:hidden">
+      <nav className="sticky top-0 z-50 px-4 py-5 text-sm text-white bg-gray-800 md:hidden">
         <div className="flex">
           {!open ? (
             <FiX

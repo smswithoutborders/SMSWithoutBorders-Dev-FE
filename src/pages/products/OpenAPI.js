@@ -1,5 +1,12 @@
 import React from "react";
-import { TabBar, Button, Loader, useTitle, Table } from "components";
+import {
+  TabBar,
+  Button,
+  Loader,
+  useTitle,
+  Table,
+  SummaryList,
+} from "components";
 import { useGetMetricsQuery } from "services";
 import { authSelector, credentialsSelector } from "features";
 import { useSelector } from "react-redux";
@@ -33,58 +40,13 @@ const OpenAPI = () => {
     );
   }
   return (
-    <div className="flex-1 w-full">
+    <div className="flex-1 w-full text-gray-300">
       <TabBar title="openapi" />
-      <div className="max-w-full p-6 prose">
+      <div className="max-w-full p-6 prose prose-invert">
         <h2>OpenAPI</h2>
         <p>Usage metrics overview</p>
-        <div className="grid grid-cols-12 gap-4 mb-10">
-          <div className="p-4 bg-white border border-gray-300 rounded-md col-span-full md:col-span-3">
-            <h3 className="mt-0 text-base font-medium text-blue-800">Total</h3>
-            <span
-              className={`${
-                metrics?.summary.total ? "text-4xl" : "text-2xl"
-              } font-light`}
-            >
-              {metrics?.summary?.total ?? "N/A"}
-            </span>
-          </div>
-          <div className="p-4 bg-white border border-gray-300 rounded-md col-span-full md:col-span-3">
-            <h3 className="mt-0 text-base font-medium text-blue-800">
-              Successful
-            </h3>
-            <span
-              className={`${
-                metrics?.summary.successful ? "text-4xl" : "text-2xl"
-              } font-light`}
-            >
-              {metrics?.summary?.successful ?? "N/A"}
-            </span>
-          </div>
-          <div className="p-4 bg-white border border-gray-300 rounded-md col-span-full md:col-span-3">
-            <h3 className="mt-0 text-base font-medium text-blue-800">Failed</h3>
-            <span
-              className={`${
-                metrics?.summary.failed ? "text-4xl" : "text-2xl"
-              } font-light`}
-            >
-              {metrics?.summary?.failed ?? "N/A"}
-            </span>
-          </div>
-          <div className="p-4 bg-white border border-gray-300 rounded-md col-span-full md:col-span-3">
-            <h3 className="mt-0 text-base font-medium text-blue-800">
-              Pending
-            </h3>
-            <span
-              className={`${
-                metrics?.summary.pending ? "text-4xl" : "text-2xl"
-              } font-light`}
-            >
-              {metrics?.summary?.pending ?? "N/A"}
-            </span>
-          </div>
-        </div>
 
+        <SummaryList list={metrics.summary} />
         <Table data={metrics.data} refresh={refetch} />
       </div>
     </div>

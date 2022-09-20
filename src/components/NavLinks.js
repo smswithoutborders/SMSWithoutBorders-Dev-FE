@@ -25,7 +25,7 @@ export const SideNavLink = forwardRef(({ className, ...props }, ref) => {
       {...props}
       className={({ isActive }) =>
         clsx(
-          "flex items-center px-4 py-6 lg:py-4 font-medium outline-none appearance-none",
+          "flex items-center px-4 py-6 lg:py-4 font-medium outline-none appearance-none text-gray-300",
           isActive && "bg-blue-800 text-white",
           className
         )

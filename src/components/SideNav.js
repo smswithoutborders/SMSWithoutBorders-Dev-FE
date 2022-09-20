@@ -8,7 +8,7 @@ const SideNav = ({ open, className }) => {
   return (
     <nav
       className={clsx(
-        "hidden h-screen bg-white lg:block w-full",
+        "hidden min-h-screen bg-gray-700 lg:block w-full h-full col-span-2",
         !open && "lg:hidden",
         className
       )}

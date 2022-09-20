@@ -19,28 +19,25 @@ export const ProductCard = ({
   return (
     <div
       className={clsx(
-        "shadow-md rounded-lg border border-gray-200 bg-white",
-        open
-          ? "order-first col-span-full px-6 lg:px-8"
-          : "col-span-full lg:col-span-3 p-4"
+        "shadow-md rounded-lg bg-gray-700 text-gray-300 p-4",
+        open ? "order-first col-span-full" : "col-span-full lg:col-span-3"
       )}
     >
       {open ? (
         <Fragment>
           <div className="flex items-center justify-between">
-            <h3 className="my-2">{label}</h3>
+            <h3 className="my-0 text-gray-300">{label}</h3>
             <FiX
-              size={28}
-              className="text-gray-500 cursor-pointer"
+              size={20}
+              className="cursor-pointer"
               onClick={() => setOpen(!open)}
             />
           </div>
-          <div className="mb-8">
+          <div className="">
             <p>{description}</p>
-
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between text-sm md:text-base">
               <a
-                className="flex items-center text-blue-800 no-underline outline-none appearance-none"
+                className="flex items-center text-gray-300 no-underline outline-none appearance-none"
                 href={documentation}
                 target="_blank"
                 rel="noreferrer"
@@ -69,19 +66,19 @@ export const ProductCard = ({
         </Fragment>
       ) : (
         <div className="">
-          <h3 className="my-2">{label}</h3>
+          <h3 className="mt-0 text-gray-300">{label}</h3>
           <p className="truncate">{description}</p>
-          <div className="grid grid-cols-3 gap-0 mb-2 text-sm text-blue-800 justify-items-start">
+          <div className="grid grid-cols-3 gap-0 mb-2 text-sm justify-items-start">
             <button className="col-span-1" onClick={() => setOpen(!open)}>
-              summary
+              Summary
             </button>
 
             <Link
               to={name}
-              className="col-span-1 text-blue-800 no-underline appearance-none"
+              className="col-span-1 text-gray-300 no-underline appearance-none"
               onClick={() => setOpen(!open)}
             >
-              metrics
+              Telemetry
             </Link>
 
             {subscribed ? (
@@ -89,14 +86,14 @@ export const ProductCard = ({
                 className="col-span-1"
                 onClick={() => handleUnSubscription(name)}
               >
-                unsubscribe
+                Unsubscribe
               </button>
             ) : (
               <button
                 className="col-span-1"
                 onClick={() => handleSubscription(name)}
               >
-                subscribe
+                Subscribe
               </button>
             )}
           </div>

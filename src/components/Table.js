@@ -14,11 +14,11 @@ const Table = ({ data, refresh }) => {
     else if (!filterText && !filterDate) return data;
     else if (filterType !== "all") {
       return data
-        .filter((item) => item.timestamp.includes(filterDate))
+        .filter((item) => item.createdAt.includes(filterDate))
         .filter((item) => item[filterType].includes(filterText));
     }
     return data
-      .filter((item) => item.timestamp.includes(filterDate))
+      .filter((item) => item.createdAt.includes(filterDate))
       .filter((item) => {
         let match = false;
         for (const key in item) {
@@ -45,7 +45,7 @@ const Table = ({ data, refresh }) => {
           aria-label="filter"
           type="text"
           placeholder="filter"
-          className="flex-grow py-2 border border-gray-300 rounded-md"
+          className="flex-grow py-2 bg-gray-800 border-gray-500 rounded-md"
           onInput={(evt) => {
             setFilterText(evt.target.value);
           }}
@@ -55,29 +55,30 @@ const Table = ({ data, refresh }) => {
         <select
           value={filterType}
           aria-label="filter type"
-          className="py-2 border border-gray-300 rounded-md"
+          className="py-2 bg-gray-800 border-gray-500 rounded-md"
           onChange={(evt) => setFilterType(evt.target.value)}
         >
           <option value="all">filter by all</option>
-          <option value="uuid">filter by UUID</option>
-          <option value="number">filter by number</option>
-          <option value="operator">filter by operator</option>
-          <option value="timestamp">filter by timestamp</option>
+          <option value="uid">filter by UID</option>
+          <option value="phone_number">filter by phone number</option>
+          <option value="operator_name">filter by operator</option>
+          <option value="createdAt">filter by timestamp</option>
           <option value="status">filter by status</option>
+          <option value="message">filter by message</option>
         </select>
 
         {/* Date range  */}
         <input
           aria-label="date input"
           type="date"
-          className="flex-grow py-2 border border-gray-300 rounded-md"
+          className="flex-grow py-2 bg-gray-800 border-gray-500 rounded-md"
           onInput={(evt) => setFilterDate(evt.target.value)}
         />
         {/* items per page */}
         <select
           value={count}
           aria-label="items per page"
-          className="py-2 border border-gray-300 rounded-md"
+          className="py-2 bg-gray-800 border-gray-500 rounded-md"
           onChange={(evt) => setCount(evt.target.value)}
         >
           <option value="5">5 per page</option>
@@ -93,54 +94,58 @@ const Table = ({ data, refresh }) => {
           Refresh
         </button>
       </div>
-      <table className="table-auto">
-        <thead className="bg-gray-200">
-          <tr>
-            <th className="p-2">UUID</th>
-            <th className="p-2">Phone number</th>
-            <th className="p-2">Operator Name</th>
-            <th className="p-2">TimeStamp</th>
-            <th className="p-2">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pageItems.length ? (
-            <Fragment>
-              {pageItems.map((item) => (
-                <tr key={item.id}>
-                  <td className="p-2">{item.uuid}</td>
-                  <td className="p-2">{item.number}</td>
-                  <td className="p-2">{item.operator}</td>
-                  <td className="p-2">{item.timestamp}</td>
-                  <td className="p-2">{item.status}</td>
-                </tr>
-              ))}
-            </Fragment>
-          ) : (
+      <div className="overflow-auto">
+        <table className="table-auto">
+          <thead className="bg-gray-700">
             <tr>
-              <td colSpan={5} className="py-10 text-center">
-                <BiMessageError size={48} className="inline" />
-                <p className="my-1 text-lg">
-                  No {filterText ? " matching" : "available"} items
-                </p>
-                {filterText && (
-                  <p className="mt-0">Try changing the filter type</p>
-                )}
+              <th className="p-2">UID</th>
+              <th className="p-2">Phone number</th>
+              <th className="p-2">Operator Name</th>
+              <th className="p-2">TimeStamp</th>
+              <th className="p-2">Status</th>
+              <th className="p-2">Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pageItems.length ? (
+              <Fragment>
+                {pageItems.map((item) => (
+                  <tr key={item.uid}>
+                    <td className="p-2">{item.uid}</td>
+                    <td className="p-2">{item.phone_number}</td>
+                    <td className="p-2">{item.operator_name}</td>
+                    <td className="p-2">{item.createdAt}</td>
+                    <td className="p-2">{item.status}</td>
+                    <td className="p-2">{item.message}</td>
+                  </tr>
+                ))}
+              </Fragment>
+            ) : (
+              <tr>
+                <td colSpan={5} className="py-10 text-center">
+                  <BiMessageError size={48} className="inline" />
+                  <p className="my-1 text-lg">
+                    No {filterText ? " matching" : "available"} items
+                  </p>
+                  {filterText && (
+                    <p className="mt-0">Try changing the filter type</p>
+                  )}
+                </td>
+              </tr>
+            )}
+          </tbody>
+          <tfoot className="bg-gray-700">
+            <tr>
+              <td colSpan={5} className="p-2"></td>
+              <td className="p-2 font-bold">
+                {count} <span className="font-light"> of </span>{" "}
+                {filtered?.length}
+                <span className="font-light"> items</span>
               </td>
             </tr>
-          )}
-        </tbody>
-        <tfoot className="bg-gray-200">
-          <tr>
-            <td colSpan={4} className="p-2"></td>
-            <td className="p-2 font-bold">
-              {count} <span className="font-light"> of </span>{" "}
-              {filtered?.length}
-              <span className="font-light"> items</span>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+          </tfoot>
+        </table>
+      </div>
     </Fragment>
   );
 };

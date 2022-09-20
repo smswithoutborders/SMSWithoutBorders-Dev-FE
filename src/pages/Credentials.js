@@ -33,7 +33,7 @@ const Credentials = () => {
 
   if (isLoading) return <Loader message="Processing please wait ..." />;
   return (
-    <div className="flex-1 w-full">
+    <div className="flex-1 w-full text-gray-300">
       <TabBar title="Credentials">
         {!credentials.authKey ? (
           <Button onClick={() => handleCredGeneration()}>new</Button>
@@ -43,7 +43,7 @@ const Credentials = () => {
           </Button>
         )}
       </TabBar>
-      <div className="p-6 prose">
+      <div className="p-6 prose prose-invert">
         <h2>OpenAPI Credentials</h2>
         <p>
           Use this key in your application by passing it with key=API_KEY
@@ -60,7 +60,7 @@ const Credentials = () => {
                       ? credentials.authID
                       : "xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxx"}
                   </p>
-                  <small className="text-gray-500 break-words">
+                  <small className="text-gray-400 break-words">
                     Use this key in your application by passing it with
                     auth_id="Auth ID" parameter.
                   </small>
@@ -89,7 +89,7 @@ const Credentials = () => {
                       ? credentials.authKey
                       : "xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxx"}
                   </p>
-                  <small className="text-gray-500 break-words">
+                  <small className="text-gray-400 break-words">
                     Use this key in your application by passing it with
                     auth_key="Auth Key" parameter.
                   </small>

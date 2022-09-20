@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const TabBar = ({ title, children }) => {
   const navigate = useNavigate();
   return (
-    <div className="flex items-center justify-between px-4 py-3">
+    <div className="flex items-center justify-between px-4 py-3 md:px-6">
       <div className="flex items-center">
         <FiArrowLeftCircle
           size={22}
