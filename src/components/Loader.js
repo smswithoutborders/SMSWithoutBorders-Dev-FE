@@ -7,7 +7,7 @@ import logo from "images/logo.png";
 const LoadingContainer = styled.div.attrs(({ className, light }) => ({
   className: clsx(
     "grid place-items-center mx-auto w-full",
-    light ? "text-white" : "text-gray-600",
+    light ? "text-gray-300" : "text-gray-600",
     className
   ),
 }))``;
@@ -15,7 +15,7 @@ const LoadingContainer = styled.div.attrs(({ className, light }) => ({
 const Spinner = styled.div.attrs(({ className, light }) => ({
   className: clsx(
     "animate-spin rounded-full h-16 w-16 border-b-2 mb-4",
-    light ? " border-white" : " border-gray-600",
+    light ? " border-gray-300" : " border-gray-600",
     className
   ),
 }))``;

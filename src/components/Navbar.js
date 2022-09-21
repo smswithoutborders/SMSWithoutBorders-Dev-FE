@@ -65,7 +65,7 @@ const DesktopNav = ({ onToggle, user, handleLogOut }) => {
 const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
   return (
     <Fragment>
-      <nav className="sticky top-0 z-50 px-4 py-5 text-sm text-white bg-gray-800 md:hidden">
+      <nav className="sticky top-0 z-50 px-4 py-5 text-sm text-white shadow-xl bg-gradient-to-r from-black to-slate-900 md:hidden">
         <div className="flex">
           {!open ? (
             <FiX
@@ -90,7 +90,7 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
       </nav>
 
       {!open && (
-        <div className="absolute z-50 flex flex-col w-full h-full bg-white lg:hidden">
+        <div className="absolute z-50 flex flex-col w-full h-full text-gray-300 bg-gray-800 lg:hidden">
           <div className="">
             <NavLink to="products" onClick={() => onToggle()}>
               <FiGrid size={20} className="mr-2" />
@@ -113,7 +113,7 @@ const MobileNav = ({ open, onToggle, user, handleLogOut }) => {
             </ExternalLink>
           </div>
 
-          <div className="flex items-center justify-between px-4 py-5 bg-gray-100">
+          <div className="flex items-center justify-between px-4 py-5 bg-gray-700">
             <div className="flex items-center">
               <div className="flex items-center justify-center mr-2 bg-white rounded-full w-7 h-7">
                 <p className="font-bold text-center text-gray-800">

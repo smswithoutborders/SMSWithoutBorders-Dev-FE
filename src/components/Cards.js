@@ -2,8 +2,9 @@ import React, { Fragment, useState } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { Button } from "./shared";
-import { FiX } from "react-icons/fi";
+import { FiArrowRight, FiPlusCircle, FiX } from "react-icons/fi";
 import { FiExternalLink } from "react-icons/fi";
+import { GoGraph } from "react-icons/go";
 import { Link } from "react-router-dom";
 
 export const ProductCard = ({
@@ -42,12 +43,11 @@ export const ProductCard = ({
                 target="_blank"
                 rel="noreferrer"
               >
-                <FiExternalLink size={20} />
+                <FiExternalLink size={18} />
                 <span className="ml-2">Documentation</span>
               </a>
               {subscribed ? (
                 <Button
-                  outline
                   className="py-1"
                   onClick={() => handleUnSubscription(name)}
                 >
@@ -68,32 +68,31 @@ export const ProductCard = ({
         <div className="">
           <h3 className="mt-0 text-gray-300">{label}</h3>
           <p className="truncate">{description}</p>
-          <div className="grid grid-cols-3 gap-0 mb-2 text-sm justify-items-start">
-            <button className="col-span-1" onClick={() => setOpen(!open)}>
-              Summary
-            </button>
-
-            <Link
-              to={name}
-              className="col-span-1 text-gray-300 no-underline appearance-none"
+          <div className="flex justify-between mb-2 text-sm">
+            <button
+              className="flex items-center space-x-1"
               onClick={() => setOpen(!open)}
             >
-              Telemetry
-            </Link>
+              <FiArrowRight />
+              <span>Summary</span>
+            </button>
 
             {subscribed ? (
-              <button
-                className="col-span-1"
-                onClick={() => handleUnSubscription(name)}
+              <Link
+                to={name}
+                className="flex items-center space-x-1 text-gray-300 no-underline appearance-none"
+                onClick={() => setOpen(!open)}
               >
-                Unsubscribe
-              </button>
+                <GoGraph />
+                <span>Telemetry</span>
+              </Link>
             ) : (
               <button
-                className="col-span-1"
+                className="flex items-center space-x-1"
                 onClick={() => handleSubscription(name)}
               >
-                Subscribe
+                <FiPlusCircle />
+                <span>Subscribe</span>
               </button>
             )}
           </div>

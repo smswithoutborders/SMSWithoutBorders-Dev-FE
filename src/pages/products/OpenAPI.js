@@ -1,7 +1,7 @@
 import React from "react";
 import {
   TabBar,
-  Button,
+  Error,
   Loader,
   useTitle,
   Table,
@@ -26,19 +26,9 @@ const OpenAPI = () => {
     product: "openapi",
   });
 
-  if (isFetching) return <Loader />;
-  else if (isError) {
-    return (
-      <div className="max-w-screen-xl p-6 mx-auto prose">
-        <h3>An error occured</h3>
-        <p className="">
-          Sorry, an error occured while loading metrics. If error persists,
-          please contact support
-        </p>
-        <Button onClick={() => refetch()}>try again</Button>
-      </div>
-    );
-  }
+  if (isFetching) return <Loader light />;
+  else if (isError) return <Error callBack={refetch} />;
+
   return (
     <div className="flex-1 w-full text-gray-300">
       <TabBar title="openapi" />

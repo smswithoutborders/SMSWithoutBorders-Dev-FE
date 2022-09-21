@@ -60,7 +60,7 @@ const Table = ({ data, refresh }) => {
         >
           <option value="all">filter by all</option>
           <option value="uid">filter by UID</option>
-          <option value="phone_number">filter by phone number</option>
+          <option value="phone_number">filter by recipient</option>
           <option value="operator_name">filter by operator</option>
           <option value="createdAt">filter by timestamp</option>
           <option value="status">filter by status</option>
@@ -99,7 +99,7 @@ const Table = ({ data, refresh }) => {
           <thead className="bg-gray-700">
             <tr>
               <th className="p-2">UID</th>
-              <th className="p-2">Phone number</th>
+              <th className="p-2">Recipient</th>
               <th className="p-2">Operator Name</th>
               <th className="p-2">TimeStamp</th>
               <th className="p-2">Status</th>
@@ -136,9 +136,8 @@ const Table = ({ data, refresh }) => {
           </tbody>
           <tfoot className="bg-gray-700">
             <tr>
-              <td colSpan={5} className="p-2"></td>
-              <td className="p-2 font-bold">
-                {count} <span className="font-light"> of </span>{" "}
+              <td colSpan={6} className="p-2 font-bold">
+                {count} <span className="font-light"> of </span>
                 {filtered?.length}
                 <span className="font-light"> items</span>
               </td>

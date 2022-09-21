@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { TabBar, ProductCard, Button, Loader, useTitle } from "components";
 import { useSelector } from "react-redux";
 import { authSelector } from "features";
 import {
@@ -8,6 +7,7 @@ import {
   useUnSubscriptionMutation,
 } from "services";
 import toast from "react-hot-toast";
+import { Error, TabBar, Loader, useTitle, ProductCard } from "components";
 
 const Products = () => {
   useTitle("Products");
@@ -57,21 +57,10 @@ const Products = () => {
   }
 
   if (isLoading || isFetching || subscribing || unSubscribing) {
-    return <Loader />;
+    return <Loader light />;
   }
 
-  if (isError) {
-    return (
-      <div className="max-w-screen-xl p-6 mx-auto prose">
-        <h3>An error occured</h3>
-        <p className="">
-          Sorry, an error occured while loading products. If error persists,
-          please contact support
-        </p>
-        <Button onClick={() => refetch()}>try again</Button>
-      </div>
-    );
-  }
+  if (isError) return <Error callBack={refetch} />;
 
   return (
     <div className="flex-1 w-full text-gray-300">
