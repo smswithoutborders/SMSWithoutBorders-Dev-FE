@@ -1,8 +1,15 @@
 import React, { Fragment, useMemo, useState } from "react";
 import { BiMessageError } from "react-icons/bi";
+import { BsArrowClockwise } from "react-icons/bs";
 import PropTypes from "prop-types";
 
-const Table = ({ data, refresh }) => {
+const Table = ({
+  data,
+  refresh,
+  defaultTime,
+  pollingTimes,
+  updatePollingTime,
+}) => {
   const [count, setCount] = useState(10);
   const [filterText, setFilterText] = useState("");
   const [filterType, setFilterType] = useState("all");
@@ -87,13 +94,29 @@ const Table = ({ data, refresh }) => {
           <option value="50">50 per page</option>
           <option value="100">100 per page</option>
         </select>
-        <button
-          className="px-6 py-2 text-white bg-blue-800 border-none rounded-md appearance-none"
-          onClick={() => refresh()}
-        >
-          Refresh
-        </button>
+
+        {/*polling time */}
+        <div className="flex items-center justify-between p-0 bg-gray-800 border border-gray-500 rounded-md focus:ring-blue-800">
+          <select
+            value={defaultTime}
+            aria-label="polling time"
+            className="flex-1 bg-transparent border-0 border-r border-gray-500 rounded-l-md"
+            onChange={(evt) => updatePollingTime(evt.target.value)}
+          >
+            {pollingTimes.map(({ label, value }) => (
+              <option value={value}>{label}</option>
+            ))}
+          </select>
+
+          <button
+            className="px-4 py-2 text-gray-300 rounded-r-md"
+            onClick={() => refresh()}
+          >
+            <BsArrowClockwise size={20} />
+          </button>
+        </div>
       </div>
+
       <div className="overflow-auto">
         <table className="table-auto">
           <thead className="bg-gray-700">
@@ -152,6 +175,9 @@ const Table = ({ data, refresh }) => {
 Table.propTypes = {
   data: PropTypes.array.isRequired,
   refresh: PropTypes.func.isRequired,
+  defaultTime: PropTypes.number.isRequired,
+  pollingTimes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updatePollingTime: PropTypes.func.isRequired,
 };
 
 export default Table;
