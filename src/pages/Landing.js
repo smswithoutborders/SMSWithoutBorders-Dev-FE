@@ -50,7 +50,7 @@ export const Landing = () => {
             <h2 className="my-4 text-gray-300">How to create an account</h2>
             <a
               className="flex items-center justify-between font-light text-gray-300 no-underline"
-              href="https://smswithoutborders.github.io/docs/developers/getting-started"
+              href="https://smswithoutborders.github.io/docs/developers/account/"
               target="_blank"
               rel="noreferrer"
             >
