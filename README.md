@@ -1,84 +1,23 @@
-# **SMSWithoutBorders Developer Console**
+<img src="https://github.com/smswithoutborders/SMSWithoutBorders-Resources/raw/master/multimedia/img/swob_logo_icon.png" align="right" width="350px"/>
 
-Please follow the steps below to get setup
+# SMSWithoutBorders Developer Console
 
-## Install dependencies
+The official SMSWithoutBorders Developers console.
 
-```Bash
-yarn install
-```
+Here is the interface through which developers can manage their accounts, credentials and products/integrations
 
-## Configure environment variables
+## Documentation
 
-Create dev and production .env configs from the example.env template
+1. [Configurations](docs/CONFIGURATIONS.md)
+2. [Features](docs/FEATURES.md)
 
-```Bash
-cp example.env .env.development.local
+## Contribution
 
-cp example.env .env.production.local
+We are thrilled to have you contribute to this project
 
-```
+Please take a moment to read our [contributing guide](docs/CONTRIBUTING.md) to learn about our development process.
+You can also open an issue to discuss potential changes/additions.
 
-The .env file(s) contains all modifiable variables for each environment. Below are the defaults
+## Licensing
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), which specifies variable naming conventions
-
-* PORT -> development port
-* REACT_APP_API_URL ->  Backend API URL
-* REACT_APP_API_VERSION -> API version
-* HTTPS -> Enable or disable https
-* SSL_CRT_FILE -> Location of SSL CRT file
-* SSL_KEY_FILE -> Location of SSL Key file
-
-## Start development server
-
-```bash
-yarn start
-```
-
-Open [http://localhost:18900](http://localhost:18900) to view dashboard in the browser.
-
-The page will reload if you make edits.
-
-You will also see any lint errors in the console.
-
-## Create a production build
-
-```bash
-yarn build
-```
-
-Builds the app for production. Check the `build` folder for deployable files once complete.
-
-## Deployment
-
-For a Linux/Ubuntu server running apache2 web server, follow these steps to deploy the site
-
-* Enable rewrite module
-  
-```bash
-sudo a2enmod rewrite
-```
-
-* Open apache configuration file at /etc/apache2/apache2.conf
-* Change the AllowOverride permission from none to all
-
-```bash
-<Directory /var/www/>
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-</Directory>
-```
-
-* Copy contents of build folder to server root normally located at /var/www/html. Ensure the .htaccess file is copied over. The .htaccess file is quite important as specified [here](https://create-react-app.dev/docs/deployment/#static-server)
-
-```bash
-sudo cp -r build/. /var/www/html
-```
-
-* restart apache2
-
-```bash
-sudo systemctl restart apache2
-```
+This project is licensed under the [GNU General Public License v3.0](LICENSE).
