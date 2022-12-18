@@ -41,7 +41,7 @@ const MainNavbar = () => {
       <ExternalLink
         onClick={() => toggleMenu()}
         key="documentation"
-        href="https://smswithoutborders.github.io/docs/developers/introduction"
+        href="https://smswithoutborders.github.io/docs/contributing/introduction/"
         target="_blank"
         rel="noreferrer"
       >
