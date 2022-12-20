@@ -36,7 +36,7 @@ const DesktopNav = ({ onToggle, user, handleLogOut }) => {
           <ExternalLink
             onClick={() => onToggle()}
             key="documentation"
-            href="https://smswithoutborders.github.io/docs/developers/introduction"
+            href="https://smswithoutborders.github.io/docs/developers/account/"
             target="_blank"
             rel="noreferrer"
             className="px-4 py-0 font-normal"
